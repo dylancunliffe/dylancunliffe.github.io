@@ -38,7 +38,7 @@ round-avatar: true
 #title-img: /path/to/image
 
 custom-css:
-  - "assets/css/dark-mode.css"
+  - "assets/dark-mode.css"
 
 #####################################
 # --- Footer social media links --- #
