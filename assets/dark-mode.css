@@ -1,0 +1,25 @@
+/* dark-mode.css */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #111;
+    color: #ddd;
+  }
+
+  a, a:visited {
+    color: #9cd2ff;
+  }
+
+  .navbar, .footer {
+    background-color: #1a1a1a;
+  }
+
+  .card {
+    background-color: #222;
+    border-color: #333;
+  }
+
+  pre, code {
+    background-color: #222;
+    color: #e0e0e0;
+  }
+}
