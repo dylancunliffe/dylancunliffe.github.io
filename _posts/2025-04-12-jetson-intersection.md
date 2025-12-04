@@ -3,7 +3,7 @@ layout: post
 title: Edge AI Intersection Control System
 subtitle: A real-time, vision-enhanced traffic controller built on the Jetson Orin Nano
 cover-img: 
-thumbnail-img: assets/img/jetson-intersection.jpg
+thumbnail-img: assets/img/intersection-1.jpg
 tags: [AI, Machine Learning, Embedded Programming]
 author: Dylan Cunliffe
 ---
