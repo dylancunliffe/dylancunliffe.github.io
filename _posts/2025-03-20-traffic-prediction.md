@@ -1,17 +1,11 @@
 ---
 layout: post
-title: Automotive Sensor Telemetry PCB
-subtitle: Designed PCB for EV telemetry, powered by an STM32 MCU to aggregate GPS, speed, and thermal sensor data via UART, I2C, and CAN protocols
+title: Sea to School Traffic Forecasting
+subtitle: Building a Real-Time Commute Prediction System from West Vancouver to UBC
 cover-img: 
 thumbnail-img: assets/img/traffic-prediction.png
-tags: [PCB Design]
+tags: [Arduino, C, Embedded C, GPS]
 author: Dylan Cunliffe
----
-
-# Sea-to-School Forecasting  
-### Building a Real-Time Commute Prediction System from West Vancouver to UBC  
-*Engineering Portfolio Project — Dylan Cunliffe*
-
 ---
 
 ## 📍 Overview
