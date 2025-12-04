@@ -3,7 +3,7 @@ layout: post
 title: Automotive Sensor Telemetry PCB
 subtitle: Designed PCB for EV telemetry, powered by an STM32 MCU to aggregate GPS, speed, and thermal sensor data via UART, I2C, and CAN protocols
 cover-img: 
-thumbnail-img: assets/img/telemetry-pcb.png
+thumbnail-img: assets/img/traffic-prediction.png
 tags: [PCB Design]
 author: Dylan Cunliffe
 ---
