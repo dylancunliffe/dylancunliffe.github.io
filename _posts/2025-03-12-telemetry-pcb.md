@@ -1,15 +1,15 @@
 ---
 layout: post
-title: Automotive Sensor Telemetry Unit PCB
-subtitle:
-gh-repo: daattali/beautiful-jekyll
-gh-badge: [star, fork, follow]
-tags: [test]
-comments: true
-mathjax: true
+title: Automotive Sensor Telemetry PCB
+subtitle: Designed PCB for EV telemetry, powered by an STM32 MCU to aggregate
+GPS, speed, and thermal sensor data via UART, I2C, and CAN protocols
+cover-img: /assets/img/path.jpg
+thumbnail-img: /assets/img/thumb.png
+share-img: /assets/img/path.jpg
+tags: [books, test]
 author: Dylan Cunliffe
-image: /assets/images/crepe.jpg
 ---
+
 
 ## Overview
 
