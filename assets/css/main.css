@@ -1,89 +1,122 @@
-/* --- Card Container Layout --- */
+/* ======================================= */
+/* 1. Card Container (Grid Layout) */
+/* ======================================= */
 .card-container {
     /* Use CSS Grid for a flexible and responsive layout */
     display: grid;
-    /*
-     * auto-fit: Creates as many columns as will fit.
-     * minmax(300px, 1fr): Each column will be at least 300px wide,
-     * but will grow equally to fill the remaining space (1fr).
-     */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px; /* Space between the cards */
-    padding: 20px;
+    /* This creates columns that are at least 350px wide and fill available space */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px; /* Space between the cards */
+    padding: 30px 20px;
     margin: 0 auto;
-    max-width: 1200px; /* Limit container width on very large screens */
+    max-width: 1300px; /* Adjust as needed for your desired max width */
 }
 
-/* --- Individual Post Card Style --- */
+/* ======================================= */
+/* 2. Individual Post Card Style */
+/* ======================================= */
 .post-card {
-    background-color: #ffffff; /* White background for the card */
-    border-radius: 10px; /* Softly rounded corners */
-    /* Add a subtle shadow for the "lifted" card effect */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Ensures image and content stay within the border-radius */
+    background-color: #ffffff;
+    border-radius: 12px; /* Softly rounded corners */
+    /* Key for the 'card' look: a subtle shadow */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden; 
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    height: 100%; /* Ensures all cards in a row are the same height */
+    display: flex; /* Helps ensure 100% height works correctly */
+    flex-direction: column;
 }
 
-/* Hover effect: Makes the card appear to lift slightly when the mouse is over it */
-.post-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-}
-
-/* Reset the link styling inside the card */
+/* Make the entire card link clickable */
 .post-card a {
     text-decoration: none;
-    color: inherit; /* Inherit the text color from the parent */
-    display: block; /* Make the entire card clickable */
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-/* --- Card Image Style --- */
+/* Hover effect: Lifts the card and deepens the shadow */
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ======================================= */
+/* 3. Card Image Style (.card-image) */
+/* ======================================= */
 .card-image {
-    width: 100%; /* Image fills the width of the card */
-    height: 200px; /* Fixed height for visual consistency */
+    width: 100%;
+    height: 250px; /* Increase this to make the image more prominent */
     object-fit: cover; /* Ensures the image covers the area without distortion */
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    /* Match border radius of the card */
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
-/* --- Card Content Area --- */
+/* ======================================= */
+/* 4. Card Content and Typography */
+/* ======================================= */
 .card-content {
-    padding: 15px 20px 20px;
+    padding: 20px 25px 30px;
+    flex-grow: 1; /* Allows content area to fill remaining vertical space */
 }
 
 .card-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: #333;
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     line-height: 1.3;
+}
+
+.card-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin-top: 0;
+    margin-bottom: 15px;
 }
 
 .card-excerpt {
     font-size: 1rem;
     color: #555;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.card-meta {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: auto; /* Pushes meta info to the bottom */
 }
 
 .card-date {
     display: block;
-    font-size: 0.85rem;
-    color: #999;
     text-transform: uppercase;
     font-weight: bold;
+    color: #999;
+    margin-top: 5px;
 }
 
-/* --- Mobile Responsiveness --- */
+/* ======================================= */
+/* 5. Mobile Responsiveness */
+/* ======================================= */
 @media (max-width: 768px) {
-    /* On smaller screens (tablets/mobile), reduce the padding and gap */
     .card-container {
+        /* On small screens, allow cards to stack (minimum width of 100% minus padding) */
+        grid-template-columns: 1fr;
         padding: 10px;
         gap: 20px;
     }
+    
+    .card-image {
+        height: 200px; /* Slightly smaller image on mobile */
+    }
 
-    /* Cards will still be at least 300px, but if the screen is smaller,
-       the grid layout handles stacking them naturally. */
+    .card-content {
+        padding: 15px 20px;
+    }
+
     .card-title {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
     }
 }
