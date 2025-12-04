@@ -2,21 +2,3 @@
 layout: home
 author_profile: true
 ---
-
-<div class="card-container">
-  {% for post in site.posts %}
-    <div class="post-card">
-      <a href="{{ post.url | relative_url }}">
-        {% if post.image %}
-          
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" class="card-image">
-        {% endif %}
-        <div class="card-content">
-          <h3 class="card-title">{{ post.title }}</h3>
-          <p class="card-excerpt">{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
-          <span class="card-date">{{ post.date | date_to_string }}</span>
-        </div>
-      </a>
-    </div>
-  {% endfor %}
-</div>
