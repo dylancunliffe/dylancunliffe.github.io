@@ -10,6 +10,7 @@ layout: page
   {% for post in posts %}
     <div class="post-card">
       <a href="{{ post.url | relative_url }}">
+        
         {%- capture thumbnail -%}
           {% if post.thumbnail-img %}
             {{ post.thumbnail-img }}
@@ -25,30 +26,23 @@ layout: page
         {% assign thumbnail=thumbnail | strip %}
 
         {% if thumbnail != "" %}
-          <img src="{{ thumbnail | absolute_url }}" alt="Post thumbnail" class="card-image">
+          <img src="{{ thumbnail | relative_url }}" alt="{{ post.title }}" class="card-image">
         {% endif %}
 
         <div class="card-content">
           <h3 class="card-title">{{ post.title | strip_html }}</h3>
           
-          {% if post.subtitle %}
-            <h4 class="card-subtitle">
-            {{ post.subtitle | strip_html }}
-            </h4>
-          {% endif %}
-
           <p class="card-excerpt">
-            {% assign excerpt_length = site.excerpt_length | default: 30 %}
-            {{ post.excerpt | strip_html | truncatewords: excerpt_length }}
+            {% if post.subtitle %}
+              {{ post.subtitle | strip_html | truncate: 120 }}
+            {% else %}
+              {{ post.excerpt | strip_html | truncatewords: 20 }}
+            {% endif %}
           </p>
           
-          <p class="card-meta">
-            {% if post.author %}
-              <span>By <strong>{{ post.author | strip_html }}</strong></span><br>
-            {% endif %}
-            {% assign date_format = site.date_format | default: "%B %-d, %Y" %}
-            <span class="card-date">Posted on {{ post.date | date: date_format }}</span>
-          </p>
+          <div class="card-meta">
+            <span class="card-date">{{ post.date | date: "%B %-d, %Y" }}</span>
+          </div>
         </div>
       </a>
     </div>
@@ -59,7 +53,7 @@ layout: page
 <ul class="pagination main-pager">
   {% if paginator.previous_page %}
   <li class="page-item previous">
-    <a class="page-link" href="{{ paginator.previous_page_path | absolute_url }}">
+    <a class="page-link" href="{{ paginator.previous_page_path | relative_url }}">
       <i class="fas fa-arrow-left" alt="Newer Posts"></i>
       <span class="d-none d-sm-inline-block">Newer Posts</span>
     </a>
@@ -67,7 +61,7 @@ layout: page
   {% endif %}
   {% if paginator.next_page %}
   <li class="page-item next">
-    <a class="page-link" href="{{ paginator.next_page_path | absolute_url }}">
+    <a class="page-link" href="{{ paginator.next_page_path | relative_url }}">
       <span class="d-none d-sm-inline-block">Older Posts</span>
       <i class="fas fa-arrow-right" alt="Older Posts"></i>
     </a>
