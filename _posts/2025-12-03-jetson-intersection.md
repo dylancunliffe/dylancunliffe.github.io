@@ -13,11 +13,6 @@ author: Dylan Cunliffe
 
 ---
 
-# Smart Intersection Control System
-*A real-time, vision-enhanced traffic controller built on the Jetson Orin Nano*
-
----
-
 ## 🚦 Overview
 
 For this project, I designed and built a complete **smart intersection simulation** using:
