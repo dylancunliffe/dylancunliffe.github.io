@@ -8,6 +8,7 @@ tags: [test]
 comments: true
 mathjax: true
 author: Dylan Cunliffe
+image: /assets/images/crepe.jpg
 ---
 
 ## Overview
