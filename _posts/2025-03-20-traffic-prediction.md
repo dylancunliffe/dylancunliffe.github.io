@@ -2,7 +2,6 @@
 layout: post
 title: Sea to School Traffic Forecasting
 subtitle: Building a Real-Time Commute Prediction System from West Vancouver to UBC
-cover-img: 
 thumbnail-img: assets/img/traffic-prediction.png
 tags: [Arduino, C, Embedded C, GPS]
 author: Dylan Cunliffe
