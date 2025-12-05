@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Resume
-permalink: /resume/
+permalink: /assets/DylanCunliffeResume-20251202.pdf
 order: 3
 ---
 
