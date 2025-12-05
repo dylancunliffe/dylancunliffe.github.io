@@ -9,7 +9,7 @@ order: 2
     <h2>My Engineering Resume</h2>
     <p>View the full document below or click the button to download the PDF file.</p>
     
-    <a href="/assets/docs/Dylan_Cunliffe_Resume.pdf" class="btn btn-primary" target="_blank" download style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">
+    <a href="/assets/DylanCunliffeResume-20251202.pdf" class="btn btn-primary" target="_blank" download style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">
         Download Resume PDF
     </a>
 </div>
@@ -20,7 +20,7 @@ order: 2
     <object data="/assets/DylanCunliffeResume-20251202.pdf" type="application/pdf" width="100%" height="800px">
         <p style="text-align: center; padding: 50px; border: 1px dashed #ccc;">
             Your browser cannot display the embedded PDF. 
-            <a href="/assets/docs/Dylan_Cunliffe_Resume.pdf" download>Please click here to download the file directly.</a>
+            <a href="/assets/DylanCunliffeResume-20251202.pdf" download>Please click here to download the file directly.</a>
         </p>
     </object>
 </div>
