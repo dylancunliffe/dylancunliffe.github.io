@@ -101,7 +101,7 @@ To accomplish this, I built:
 
 [Full code in Github project](https://github.com/dylancunliffe/sea-to-school-forecasting/blob/main/esp32-firmware.cpp)
 
-### *Insert Photo Placeholder*  
+![Breadboard Photo](\assets\img\breadboard.jpg)
 **Photo of the ESP32 + GPS + SD hardware mounted in the vehicle.**
 
 ### Major Fix  
