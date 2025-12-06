@@ -8,7 +8,7 @@ author: Dylan Cunliffe
 ---
 
 ### **Overview**
-I designed and engineered a robust, mixed-signal telemetry node intended for automotive diagnostics. The system aggregates real-time data from GNSS/GPS, digital and analog thermal sensors, and Hall-effect speed sensors, transmitting packetized data to a central vehicle controller via the **CAN Bus**.
+In an effort to learn PCB design in Altium, I gave myself the challenge of fully designing a board in a weekend. So I designed a mixed-signal telemetry node intended for automotive diagnostics. The system aggregates real-time data from GNSS/GPS, digital and analog thermal sensors, and Hall-effect speed sensors, transmitting packetized data to a central vehicle controller via the **CAN Bus**.
 
 ![3d render of PCB](/assets/img/Screenshot 2025-12-05 184139.png)
 *Figure 1: 3D Render of the Telemetry Unit designed in Altium Designer.*
@@ -31,19 +31,16 @@ The system is partitioned into three distinct electrical zones to minimize noise
 ### **Key Engineering Challenges**
 
 #### **1. Automotive Power Design & Protection**
-A standard vehicle 12V rail is notoriously noisy. To ensure the 3.3V logic remained stable during voltage transients:
-* **DC-DC Buck Conversion:** Replaced inefficient linear regulators with a Switching Regulator (Buck) topology to maximize efficiency and minimize heat.
+A standard vehicle 12V rail is noisy. To ensure the 3.3V logic remained stable during voltage transients:
+* **DC-DC Buck Conversion:** Replaced inefficient linear regulators with a Switching Regulator (Buck Converter) to maximize efficiency and minimize heat.
 * **Protection Circuitry:** Implemented a **Schottky diode** for reverse polarity protection (preventing damage during battery installation) and input bulk capacitance to filter alternator ripple.
 * **Loop Optimization:** In the layout, I minimized the surface area of the high-current switching loop (Input Cap $\rightarrow$ Buck $\rightarrow$ Diode) to reduce radiated EMI.
 
 #### **2. High-Speed Differential Signaling (CAN Bus)**
 The communication backbone relies on a **TJA1042 Transceiver**. To ensure data integrity over long cable runs:
-* **Split Termination:** Implemented a split termination network ($60\Omega$ + $60\Omega$ + 4.7nF) to improve common-mode noise rejection.
+* **Split Termination:** Implemented a split termination network to improve common-mode noise rejection.
 * **Transient Protection:** Added **TVS Diodes (PESD1CAN)** immediately at the connector entry to shunt high-voltage ESD spikes before they reach the transceiver.
 * **Differential Routing:** Routed `CAN_H` and `CAN_L` as a tightly coupled differential pair with length matching to ensure phase synchronization and impedance control.
-
-![CAN Bus Routing](path/to/your/zoom_image_can_bus.jpg)
-*Figure 3: Differential Pair routing of the CAN Bus interface with TVS protection.*
 
 #### **3. RF & Signal Integrity**
 For the GNSS (GPS) module, the signal path from the module to the SMA connector required careful attention. I routed the RF trace away from the noisy switching power supply and ensured a continuous ground plane reference on the layer beneath to maintain characteristic impedance.
@@ -51,12 +48,12 @@ For the GNSS (GPS) module, the signal path from the module to the SMA connector 
 I also utilized **System Partitioning** for the thermal sensors. Instead of relying solely on onboard sensors, I designed external I2C interfaces with local power and pull-ups, allowing the unit to monitor remote vehicle components (like battery cells) rather than just PCB ambient temperature.
 
 ![PCB Zoning Strategy](/assets/img/Gemini_Generated_Image_v5elc5v5elc5v5el.png)
-*Figure 4: PCB Layout highlighting the strict zoning of Analog, Digital, and Power domains.*
+*Figure 3: PCB Layout highlighting the strict zoning of Analog, Digital, and Power domains.*
 
 ---
 
 ### **Result**
-The final design is a compact, 2-layer PCB routed in **Altium Designer**. It demonstrates a "Safety First" hardware philosophy, ensuring that the board not only functions on a bench but survives the harsh electrical environment of an automotive chassis.
+The final design is a compact, 2-layer PCB routed in **Altium Designer**.
 
 ### **Tools & Technologies**
 * **EDA:** Altium Designer
