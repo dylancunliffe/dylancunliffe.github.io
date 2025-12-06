@@ -8,11 +8,9 @@ author: Dylan Cunliffe
 ---
 
 ### **Overview**
-I designed and engineered a robust, mixed-signal telemetry node intended for electric vehicle (EV) diagnostics. The system aggregates real-time data from GNSS/GPS, digital thermal sensors, and Hall-effect speed sensors, transmitting packetized data to a central vehicle controller via the **CAN Bus (ISO 11898)** standard.
+I designed and engineered a robust, mixed-signal telemetry node intended for automotive diagnostics. The system aggregates real-time data from GNSS/GPS, digital and analog thermal sensors, and Hall-effect speed sensors, transmitting packetized data to a central vehicle controller via the **CAN Bus**.
 
-The project focused on bridging the gap between prototype logic and automotive-grade reliability, with a heavy emphasis on **power integrity, signal integrity, and EMI suppression**.
-
-![Hero Shot - 3D Board Render](path/to/your/image_cfb528.jpg)
+![3d render of PCB](assets/img/Screenshot 2025-12-05 184139.png)
 *Figure 1: 3D Render of the Telemetry Unit designed in Altium Designer.*
 
 ---
@@ -21,11 +19,11 @@ The project focused on bridging the gap between prototype logic and automotive-g
 The core of the system is the **STM32G0B1 (ARM Cortex-M0+)** microcontroller. I selected this MCU for its rich peripheral set (specifically FDCAN and multiple USARTs) and low power consumption.
 
 The system is partitioned into three distinct electrical zones to minimize noise coupling:
-1.  **High-Noise Power Domain:** Input protection and DC-DC conversion.
-2.  **Digital Logic Domain:** MCU, Crystal Oscillator, and Status LEDs.
-3.  **RF & Sensor Domain:** GPS/GNSS path and sensitive sensor interfaces.
+1.  **High-Noise Power Area:** Input protection and DC-DC conversion.
+2.  **Digital Logic Area:** MCU, Crystal Oscillator, and Status LEDs.
+3.  **RF & Sensor Area:** GPS/GNSS path and sensitive sensor interfaces.
 
-![Schematic Architecture](path/to/your/image_0acd7f.jpg)
+![Schematic Architecture](assets/img/Screenshot 2025-12-05 184651.png)
 *Figure 2: Complete System Schematic showing logical partitioning.*
 
 ---
