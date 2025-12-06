@@ -17,7 +17,7 @@ order: 2
 <hr style="border: 0; height: 1px; background-color: #ccc; margin: 30px 0;">
 
 <div style="width: 100%; max-width: 1000px; margin: 0 auto; min-height: 800px;">
-    <object data="/assets/DylanCunliffeResume-20251202.pdf" type="application/pdf" width="100%" height="800px">
+    <object data="/assets/DylanCunliffeResume-20251202.pdf" type="application/pdf" width="100%" height="1200px">
         <p style="text-align: center; padding: 50px; border: 1px dashed #ccc;">
             Your browser cannot display the embedded PDF. 
             <a href="/assets/DylanCunliffeResume-20251202.pdf" download>Please click here to download the file directly.</a>
