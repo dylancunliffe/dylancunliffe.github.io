@@ -7,10 +7,13 @@ tags: [AI, Machine Learning, Embedded Programming]
 author: Dylan Cunliffe
 ---
 
-
-
-
 ## 🚦 Overview
+
+Modern urban intersections are chaotic environments. My project aims to demonstrate how low-cost embedded systems can contribute to **safer, more intelligent intersections**.
+
+I created a **real time intersection awareness system** using the NVIDIA Jetson Orin Nano, a live camera feed, YOLOv8 object detection, a pedestrian-style button, and a set of high-brightness LEDs acting as “awareness indicators.” When the system detects a vehicle approaching from the side, the LEDs activate to warn a crossing pedestrian. The user can also press a button to simulate “requesting to cross.”
+
+This prototype shows how computer vision and embedded hardware can work together to support **safer, more informed crossing decisions**, especially in complex or low-visibility areas.
 
 For this project, I designed and built a complete **smart intersection simulation** using:
 
@@ -19,8 +22,6 @@ For this project, I designed and built a complete **smart intersection simulatio
 - **Push-button input** for pedestrian crossing
 - **LED traffic-light modules**
 - A **Python controller** that synchronizes everything using shared files and atomic writes
-
-The system behaves like a real intersection: vehicles on a “road” are detected through a camera, and a pedestrian “walk” button requests crossing. The controller resolves when to allow pedestrians based on traffic presence, minimum-green constraints, and safety clearances.
 
 ---
 
@@ -73,7 +74,18 @@ Camera → YOLOv8 Detector → Shared File → Main Intersection Controller → 
                            Pedestrian Button (GPIO)
 ```
 
-### Components
+### Modules  
+1. **Vision Module (`yolo_detect.py`)**  
+   - Reads camera frames  
+   - Runs YOLOv8 inference  
+   - Detects vehicles and updates `side_detected.txt`  
+
+2. **Intersection Controller (`main_controller.py`)**  
+   - Reads the shared detection file  
+   - Monitors a pedestrian button  
+   - Drives LEDs indicating whether it’s safe to cross  
+
+File writing prevents corrupted reads and ensures consistent hardware behavior.
 
 - **YOLOv8 Object Detection Script**
   Continuously writes `"1"` or `"0"` to `/tmp/side_detected.txt` using file writes.
@@ -88,10 +100,6 @@ Camera → YOLOv8 Detector → Shared File → Main Intersection Controller → 
   - Delayed crossing if vehicles are present
 
 ---
-
-## 2. Object Detection Module (YOLOv8 ONNX)
-
-This module captures frames, detects vehicles, and writes out the shared integer flag.
 
 > *[Insert photo: Camera view with YOLO bounding boxes]*
 
@@ -139,15 +147,28 @@ cv2.destroyAllWindows()
 
 ---
 
-## 3. Pedestrian Button Input
+### Components Used  
+- Jetson Orin Nano Super Dev Kit  
+- USB or CSI camera  
+- High-brightness LEDs  
+- 330–1kΩ resistors  
+- Active-high pushbutton  
+- Jumper wires + breadboard  
 
-### Wiring (examples)
+### Wiring  
+- Button wired **active high**:  
+  - One side → **3.3V**  
+  - Other side → **GPIO input pin**  
+  - Same pin → **10kΩ pulldown** to GND  
+- LEDs driven through current-limiting resistors from GPIO outputs  
 
-* `3.3V` → `10 kΩ` → `GPIO pin`
-* `GPIO pin` → `Button` → `GND`
-* *Logic:* Unpressed → HIGH, Pressed → LOW
+This ensures clean, stable digital readings with no floating.
+
+---
 
 > *[Insert circuit diagram/photo: Pedestrian Push-Button Wiring]*
+
+## 3. Pedestrian Button Input
 
 ### Code — Button Reader
 
@@ -243,6 +264,7 @@ if state == "MAIN_GREEN":
 
 ## 7. Future Improvements
 
+* Add more cameras for a full intersection system
 * Add redundant sensors (ultrasonic/loop) for safety
 * Move detection → shared memory or IPC for lower latency
 * Add a small pedestrian countdown display
