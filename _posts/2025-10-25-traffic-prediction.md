@@ -40,6 +40,11 @@ C Data Processing Program
 └── visualize_segments.py  # Python script to visualize segments
 ````
 
+## 📂 Repository
+
+Full source code:  
+**[Github Link](https://github.com/dylancunliffe/sea-to-school-forecasting)**
+
 ---
 
 ## Motivation
@@ -315,13 +320,6 @@ Each segment boundary corresponds to GPS-detected distance thresholds.
 - Automate segment detection using clustering  
 - Improve hardware reliability & smoothing  
 - Add cloud storage + long-term trend analysis  
-
----
-
-## 📂 Repository
-
-Full source code:  
-**[Github Link](https://github.com/dylancunliffe/sea-to-school-forecasting)**
 
 ---
 
