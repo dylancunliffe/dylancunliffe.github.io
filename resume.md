@@ -9,7 +9,7 @@ order: 2
     <h2></h2>
     <p>View the full document below or click the button to download the PDF file.</p>
     
-    <a href="/assets/DylanCunliffeResume-20251202.pdf" class="btn btn-primary" target="_blank" download style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">
+    <a href="/assets/DylanCunliffeResume-20251202.pdf" class="btn btn-primary" target="_blank" download style="display: inline-block; padding: 10px 20px; background-color: #404040; color: white; text-decoration: none; border-radius: 5px; margin-top: 10px;">
         Download Resume PDF
     </a>
 </div>
