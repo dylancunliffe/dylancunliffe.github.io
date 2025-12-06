@@ -7,11 +7,6 @@ tags: [AI, Machine Learning, Embedded Programming]
 author: Dylan Cunliffe
 ---
 
-# Smart Intersection Control System
-*A real-time, vision-enhanced traffic controller built on the Jetson Orin Nano*
-
----
-
 ## 🚦 Overview
 
 For this project, I designed and built a complete **smart intersection simulation** using:
@@ -26,8 +21,9 @@ The system behaves like a real intersection: vehicles on a “road” are detect
 
 ---
 
-## 📸 Project Setup
+## Project Setup
 
+work in progress
 > **[Insert the following photos]:**
 > - *PHOTO 1 — Full intersection setup (Jetson, LEDs, button, camera)*
 > - *PHOTO 2 — Close-up of wiring to the GPIO header*
@@ -49,10 +45,10 @@ Camera → YOLOv8 Detector → Shared File → Main Intersection Controller → 
 ### Components
 
 - **YOLOv8 Object Detection Script**
-  Continuously writes `"1"` or `"0"` to `/tmp/side_detected.txt` using atomic file writes.
+  Continuously writes `"1"` or `"0"` to `/tmp/side_detected.txt` using file writes.
 
 - **Button Reader**
-  Reports the pedestrian button’s state (active-high or active-low depending on wiring).
+  Reports the pedestrian button’s state.
 
 - **Main Controller**
   Reads both inputs and decides whether to allow:
@@ -116,19 +112,13 @@ cv2.destroyAllWindows()
 
 ### Wiring (examples)
 
-**Active-low (recommended)**
 * `3.3V` → `10 kΩ` → `GPIO pin`
 * `GPIO pin` → `Button` → `GND`
 * *Logic:* Unpressed → HIGH, Pressed → LOW
 
-**Active-high**
-* `GPIO pin` → `Button` → `3.3V`
-* `GPIO pin` → `10 kΩ` → `GND` (pull-down)
-* *Logic:* Unpressed → LOW, Pressed → HIGH
-
 > *[Insert circuit diagram/photo: Pedestrian Push-Button Wiring]*
 
-### Code — Button Reader (active-high example)
+### Code — Button Reader
 
 ```python
 import Jetson.GPIO as GPIO
@@ -153,7 +143,7 @@ The controller manages:
 * **Vehicle requests from YOLO** (latched, adaptive side-green extension)
 * **Safety phases** (yellow + all-red intervals)
 
-> *[Insert diagram: State Machine Diagram for Intersection Logic]*
+![State diagram](/assets/img/Gemini_Generated_Image_eoqri3eoqri3eoqr.png)
 
 ### Code — Main Controller (excerpt)
 
@@ -202,7 +192,7 @@ if state == "MAIN_GREEN":
 
 ### Behavior summary
 
-1. When YOLO detects vehicles on the side street, a car request is latched. The main road completes the minimum green, then transitions to side green. Side green is extended adaptively while vehicles are present (up to a max).
+1. When YOLO detects vehicles on the side street, a car request is created. The main road completes the minimum green, then transitions to side green. Side green is extended adaptively while vehicles are present (up to a max).
 2. Pedestrian button latches a guaranteed pedestrian time; if cars are present, the pedestrian waits until safe.
 3. Uses atomic file writes to prevent race conditions between detector and controller.
 
@@ -230,8 +220,6 @@ if state == "MAIN_GREEN":
 
 ---
 
-### 📁 Repo / Media Placeholders
+### 📁 Repo
 
 * **GitHub repo:** [Insert link once uploaded]
-* **High-res photos:** [Insert links or assets]
-* **Demo video:** [Insert link or embed]
