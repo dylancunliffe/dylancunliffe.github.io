@@ -7,6 +7,9 @@ tags: [AI, Machine Learning, Embedded Programming]
 author: Dylan Cunliffe
 ---
 
+
+
+
 ## 🚦 Overview
 
 For this project, I designed and built a complete **smart intersection simulation** using:
@@ -18,6 +21,34 @@ For this project, I designed and built a complete **smart intersection simulatio
 - A **Python controller** that synchronizes everything using shared files and atomic writes
 
 The system behaves like a real intersection: vehicles on a “road” are detected through a camera, and a pedestrian “walk” button requests crossing. The controller resolves when to allow pedestrians based on traffic presence, minimum-green constraints, and safety clearances.
+
+---
+
+## Background & Motivation
+
+### Traditional Traffic Detection  
+Most legacy traffic intersections rely on **inductive loop sensors** embedded in the road. These work by detecting disturbances in a magnetic field when a vehicle sits above the loop. While reliable, they come with significant downsides:
+
+- **Expensive installation** — requires cutting into pavement  
+- **Difficult maintenance** — pavement cracks, weather damage, and resurfacing often break loops  
+- **Single-purpose** — they detect only vehicle presence, not type, speed, or configuration  
+- **No pedestrian awareness** — separate hardware is required  
+
+Some systems use **radar**, **microwave sensors**, or **infrared**, but these add cost and still lack visual data.
+
+### Why Vision-Based Detection?
+Computer vision offers several advantages:
+
+- **Non-invasive** — no trenching or installing in-road hardware  
+- **Adaptable** — detect cars, bikes, pedestrians, buses, or anything a model is trained for  
+- **Upgradeable** — improve via model updates instead of hardware replacements  
+- **Cheaper for prototyping** — a single camera + embedded board replaces multiple sensors  
+
+My motivation for this project came from wanting to re-create a complete AI-driven intersection system using **only low-cost hardware and open-source tools**—something that simulates real-world infrastructure challenges but is hands-on and understandable at a student level.
+
+### Why the Jetson Orin Nano?
+
+NVIDIA’s Jetson Orin Nano is a compact, power-efficient edge AI computer. It’s powerful enough to run **real-time YOLO detection** while simultaneously executing hardware control logic—making it ideal for embedded robotics, smart devices, and in this case, a vision-driven intersection controller.
 
 ---
 
