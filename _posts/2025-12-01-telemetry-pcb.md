@@ -50,7 +50,7 @@ For the GNSS (GPS) module, the signal path from the module to the SMA connector 
 
 I also utilized **System Partitioning** for the thermal sensors. Instead of relying solely on onboard sensors, I designed external I2C interfaces with local power and pull-ups, allowing the unit to monitor remote vehicle components (like battery cells) rather than just PCB ambient temperature.
 
-![PCB Zoning Strategy](path/to/your/zoom_image_zoning.jpg)
+![PCB Zoning Strategy](assets/img/Gemini_Generated_Image_v5elc5v5elc5v5el.png)
 *Figure 4: PCB Layout highlighting the strict zoning of Analog, Digital, and Power domains.*
 
 ---
@@ -63,6 +63,3 @@ The final design is a compact, 2-layer PCB routed in **Altium Designer**. It dem
 * **MCU:** STM32G0B1 (ARM Cortex-M0+)
 * **Protocols:** CAN (ISO 11898), UART, I2C
 * **Hardware Skills:** Buck Converters, Differential Pair Routing, Impedance Control, DFM (Design for Manufacturing).
-
----
-*Created by [Dylan Cunliffe](https://github.com/dylancunliffe)*
