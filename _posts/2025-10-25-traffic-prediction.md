@@ -16,30 +16,28 @@ author: Dylan Cunliffe
 - A **segment-based route algorithm**  
 - A pipeline for historical data analysis  
 
-The project combines embedded systems, data engineering, and predictive modelling into a polished engineering portfolio piece backed by real commute data.
+The project combines embedded systems, data engineering, and predictive modelling into a full stack system backed by real commute data.
 
 ---
 
 ## Project Structure
 
 ````bash
-.
-
 Arduino
-├── Hardware              # ESP32 embedded system with GPS and SD card breakout boards.
-└── Firmware              # Converts NMEA sentences to data, and stores on SD card
+├── Hardware               # ESP32 embedded system with GPS and SD card breakout boards.
+└── Firmware               # Converts NMEA sentences to data, and stores on SD card
 
 C Data Processing Program
-├── esp_data.cpp          # Embedded firmware to capture/sense data
-├── esp_data.h            # Header definitions for firmware
-├── gpsdata.txt           # Raw data collected from sensors
-├── main.cpp              # Main firmware logic
-├── prediction.cpp        # Prediction algorithm implementation
-├── prediction.h          # Header for prediction logic
-├── traversals_output.txt # Output of traversal time analysis
-├── predictions_output.txt# Output of predicted commute durations
-├── segments_map.html     # Map visualization of route segments
-└── visualize_segments.py # Python script to visualize segments
+├── esp_data.cpp           # Embedded firmware to capture/sense data
+├── esp_data.h             # Header definitions for firmware
+├── gpsdata.txt            # Raw data collected from sensors
+├── main.cpp               # Main firmware logic
+├── prediction.cpp         # Prediction algorithm implementation
+├── prediction.h           # Header for prediction logic
+├── traversals_output.txt  # Output of traversal time analysis
+├── predictions_output.txt # Output of predicted commute durations
+├── segments_map.html      # Map visualization of route segments
+└── visualize_segments.py  # Python script to visualize segments
 ````
 
 ---
@@ -94,15 +92,15 @@ To accomplish this, I built:
       dataFile.print("INVALID_LAT,INVALID_LNG,");
     }
 ````
-~Segment of Arduino firmware which decodes GPS NMEA sentences into longitude and latitude~
+**Segment of Arduino firmware which decodes GPS NMEA sentences into longitude and latitude**
 
-[Full code in Github project](https://github.com/dylancunliffe/sea-to-school-forecasting/blob/main/esp_data.cpp)
+[Full code in Github project](https://github.com/dylancunliffe/sea-to-school-forecasting/blob/main/esp32-firmware.cpp)
 
 ### *Insert Photo Placeholder*  
 **Photo of the ESP32 + GPS + SD hardware mounted in the vehicle.**
 
 ### Major Fix  
-I spent weeks debugging a seemlingly unfixable issue, where I could not get my SD card reader to initialize my SD card. I went through various stages of trying to debut the wiring, code, and SD card, before concluding the unit must be the issue. It was, and a new SD card reader worked immediately upon installation.
+I spent weeks debugging a seemlingly unfixable issue, where I could not get my SD card reader to initialize my SD card. I went through various stages of trying to debug the wiring, code, and SD card, before concluding the unit must be the issue. It was, and a new SD card reader worked immediately upon installation.
 
 ### Additional Note 
 The GPS must lock on to 3 satellites before it can output raw nmea sentences, but this takes time, upwards of 5 minutes if inside or out of direct view of the sky. To improve the robustness of this system, a small battery should be included to **keep the GPS powered when the ESP is turned off**, so that it never loses its gps lock, and can therefore **boot significantly faster**. This idea was implemented on a future project, my telemetry pcb, to ensure the vehicle can output gps data immediately.
@@ -113,7 +111,7 @@ The GPS must lock on to 3 satellites before it can output raw nmea sentences, bu
 
 Raw data log example:
 
-````csv
+````bash
 INVALID_LAT,INVALID_LNG,0.00,2025,10,16,15:32:48
 INVALID_LAT,INVALID_LNG,0.00,2025,10,16,15:32:49
 INVALID_LAT,INVALID_LNG,0.00,2025,10,16,15:32:50
@@ -140,7 +138,7 @@ Raw logs are stored as CSV files on the SD card. The data pipeline:
 
 ### Example Segment Extraction Code
 
-````C ++
+````cpp
 		// Read each line from the file, and store the data in the ESPData array
 		while (fgets(buffer, sizeof(buffer), filepointer) != NULL) {
 			if (count >= MAX_ESP_DATA_POINTS) {
@@ -174,7 +172,7 @@ Raw logs are stored as CSV files on the SD card. The data pipeline:
 
 This code produces an output file, which contains the time for each segment for each drive as a csv entry for later analysis.
 
-````csv
+````bash
 9,247,2025-10-16,08:32:52
 10,317,2025-10-16,08:37:04
 11,179,2025-10-16,08:42:27
@@ -207,7 +205,7 @@ Each segment stores:
 
 ### Example Model
 
-````C ++
+````cpp
 void predictSegmentDuration(int* segment_id, ValidTraversal *traversals, int traversalCount, int targetYear, int targetMonth, int targetDay, int targetTime, int targetDOW, double* predictedMean, double* predictedStdDev) {
 	double* durations = (double*) malloc(MAX_TRAVERSALS * sizeof(double));
 	double* weights = (double*) malloc(MAX_TRAVERSALS * sizeof(double));
@@ -241,7 +239,7 @@ The corrected version ensures each segment starts **when the previous one ends**
 
 Once all the prediction programs were working, I made a final data analysis function that produced a prediction for every minute of every day, that I could use for seperate real-time predictions.
 
-````csv
+````bash
 Time: 06:28, Predicted Mean: 1634.11, Std Dev: 105.88
 Time: 06:29, Predicted Mean: 1633.89, Std Dev: 106.11
 Time: 06:30, Predicted Mean: 1633.67, Std Dev: 106.34
