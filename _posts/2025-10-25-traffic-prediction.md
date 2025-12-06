@@ -293,7 +293,7 @@ The commute is split into logical segments such as:
 
 Each segment boundary corresponds to GPS-detected distance thresholds.
 
-![Segment Map](assets/img/traffic-prediction.png) 
+![Segment Map](/assets/img/traffic-prediction.png) 
 **Map of the different segment boundaries.**
 
 
