@@ -10,7 +10,7 @@ author: Dylan Cunliffe
 ### **Overview**
 I designed and engineered a robust, mixed-signal telemetry node intended for automotive diagnostics. The system aggregates real-time data from GNSS/GPS, digital and analog thermal sensors, and Hall-effect speed sensors, transmitting packetized data to a central vehicle controller via the **CAN Bus**.
 
-![3d render of PCB](assets/img/Screenshot 2025-12-05 184139.png)
+![3d render of PCB](/assets/img/Screenshot 2025-12-05 184139.png)
 *Figure 1: 3D Render of the Telemetry Unit designed in Altium Designer.*
 
 ---
@@ -23,7 +23,7 @@ The system is partitioned into three distinct electrical zones to minimize noise
 2.  **Digital Logic Area:** MCU, Crystal Oscillator, and Status LEDs.
 3.  **RF & Sensor Area:** GPS/GNSS path and sensitive sensor interfaces.
 
-![Schematic Architecture](assets/img/Screenshot 2025-12-05 184651.png)
+![Schematic Architecture](/assets/img/Screenshot 2025-12-05 184651.png)
 *Figure 2: Complete System Schematic showing logical partitioning.*
 
 ---
@@ -50,7 +50,7 @@ For the GNSS (GPS) module, the signal path from the module to the SMA connector 
 
 I also utilized **System Partitioning** for the thermal sensors. Instead of relying solely on onboard sensors, I designed external I2C interfaces with local power and pull-ups, allowing the unit to monitor remote vehicle components (like battery cells) rather than just PCB ambient temperature.
 
-![PCB Zoning Strategy](assets/img/Gemini_Generated_Image_v5elc5v5elc5v5el.png)
+![PCB Zoning Strategy](/assets/img/Gemini_Generated_Image_v5elc5v5elc5v5el.png)
 *Figure 4: PCB Layout highlighting the strict zoning of Analog, Digital, and Power domains.*
 
 ---
