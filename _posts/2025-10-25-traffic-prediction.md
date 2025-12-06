@@ -102,7 +102,7 @@ To accomplish this, I built:
 [Full code in Github project](https://github.com/dylancunliffe/sea-to-school-forecasting/blob/main/esp32-firmware.cpp)
 
 ![Breadboard Photo](\assets\img\breadboard.jpg)
-**Photo of the ESP32 + GPS + SD hardware mounted in the vehicle.**
+**Photo of the ESP32 + GPS + SD hardware mounted on the breadboard.**
 
 ### Major Fix  
 I spent weeks debugging a seemlingly unfixable issue, where I could not get my SD card reader to initialize my SD card. I went through various stages of trying to debug the wiring, code, and SD card, before concluding the unit must be the issue. It was, and a new SD card reader worked immediately upon installation.
