@@ -325,7 +325,7 @@ Further suggested visualizations:
 
 ---
 
-## 🧾 Closing Notes
+## Closing Notes
 
 This project demonstrates cross-domain engineering:
 
