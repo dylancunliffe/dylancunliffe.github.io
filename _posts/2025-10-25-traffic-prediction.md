@@ -197,6 +197,25 @@ This code produces an output file, which contains the time for each segment for 
 
 ---
 
+## Route Segmentation
+
+The commute is split into logical segments such as:
+
+- Park Royal → Lions Gate Bridge  
+- Start of bridge → Stanley Park causeway 
+- Pacific St. → Burrard St. Bridge  
+- W 4th Ave → UBC Entrance 
+- UBC Entrance → Fraser River Parkade  
+
+Each segment boundary corresponds to GPS-detected distance thresholds.
+
+![Segment Map](/assets/img/traffic-prediction.png) 
+**Map of the different segment boundaries.**
+
+
+
+---
+
 ## Prediction Engine
 
 The route model treats the commute as a series of independent travel segments. This minimizes outliers by segmenting delays, ensuring time and day of week specific delays are accurately represented.
@@ -278,23 +297,6 @@ Further suggested visualizations:
 - Segment-level traversal time distributions  
 - Box plots of morning vs afternoon traffic  
 - Route animation using GPS points  
-
----
-
-## Route Segmentation
-
-The commute is split into logical segments such as:
-
-- Park Royal → Lions Gate Bridge  
-- Start of bridge → Stanley Park causeway 
-- Pacific St. → Burrard St. Bridge  
-- W 4th Ave → UBC Entrance 
-- UBC Entrance → Fraser River Parkade  
-
-Each segment boundary corresponds to GPS-detected distance thresholds.
-
-![Segment Map](/assets/img/traffic-prediction.png) 
-**Map of the different segment boundaries.**
 
 
 ---
