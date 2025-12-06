@@ -24,27 +24,22 @@ The project combines embedded systems, data engineering, and predictive modellin
 
 ````bash
 .
-├── data/
-│   ├── raw_gps_logs/
-│   └── processed_segments/
-├── device/
-│   ├── main.cpp
-│   ├── sd_logging.cpp
-│   └── gps_driver.cpp
-├── src/
-│   ├── prediction/
-│   │   ├── predict.py
-│   │   ├── segment_model.py
-│   │   └── smoothing.py
-│   ├── processing/
-│   │   ├── parse_logs.py
-│   │   └── clean_data.py
-│   └── utils/
-│       └── haversine.py
-├── notebooks/
-│   └── analysis.ipynb
-├── README.md
-└── requirements.txt
+
+Arduino
+├── Hardware              # ESP32 embedded system with GPS and SD card breakout boards.
+└── Firmware              # Converts NMEA sentences to data, and stores on SD card
+
+C Data Processing Program
+├── esp_data.cpp          # Embedded firmware to capture/sense data
+├── esp_data.h            # Header definitions for firmware
+├── gpsdata.txt           # Raw data collected from sensors
+├── main.cpp              # Main firmware logic
+├── prediction.cpp        # Prediction algorithm implementation
+├── prediction.h          # Header for prediction logic
+├── traversals_output.txt # Output of traversal time analysis
+├── predictions_output.txt# Output of predicted commute durations
+├── segments_map.html     # Map visualization of route segments
+└── visualize_segments.py # Python script to visualize segments
 ````
 
 ---
@@ -243,6 +238,28 @@ The corrected version ensures each segment starts **when the previous one ends**
 ---
 
 ## Data Analysis & Results
+
+Once all the prediction programs were working, I made a final data analysis function that produced a prediction for every minute of every day, that I could use for seperate real-time predictions.
+
+````csv
+Time: 06:28, Predicted Mean: 1634.11, Std Dev: 105.88
+Time: 06:29, Predicted Mean: 1633.89, Std Dev: 106.11
+Time: 06:30, Predicted Mean: 1633.67, Std Dev: 106.34
+Time: 06:31, Predicted Mean: 1633.45, Std Dev: 106.57
+Time: 06:32, Predicted Mean: 1633.24, Std Dev: 106.80
+Time: 06:33, Predicted Mean: 1633.03, Std Dev: 107.04
+Time: 06:34, Predicted Mean: 1632.82, Std Dev: 107.27
+Time: 06:35, Predicted Mean: 1632.61, Std Dev: 107.51
+Time: 06:36, Predicted Mean: 1632.41, Std Dev: 107.75
+Time: 06:37, Predicted Mean: 1632.21, Std Dev: 107.99
+Time: 06:38, Predicted Mean: 1632.01, Std Dev: 108.23
+Time: 06:39, Predicted Mean: 1631.81, Std Dev: 108.47
+Time: 06:40, Predicted Mean: 1631.62, Std Dev: 108.72
+Time: 06:41, Predicted Mean: 1631.44, Std Dev: 108.96
+````
+**Section of predictions for times around when I leave in the morning. (Start time, Predicted time in seconds, Std Dev)**
+
+[Full prediction set on Github](https://github.com/dylancunliffe/sea-to-school-forecasting/blob/main/predictions_output.txt)
 
 All analysis was done via my c program and a small python script.
 
