@@ -7,25 +7,21 @@ tags: [AI, Machine Learning, Embedded Programming]
 author: Dylan Cunliffe
 ---
 
-## 🚦 Overview
+## 🚦 Overview and Motivation
 
-Modern urban intersections are chaotic environments. My project aims to demonstrate how low-cost embedded systems can contribute to **safer, more intelligent intersections**.
+Modern urban intersections are chaotic environments. My project aims to demonstrate how low-cost embedded systems can contribute to **safer and more intelligent intersections**.
 
-I created a **real time intersection awareness system** using the NVIDIA Jetson Orin Nano, a live camera feed, YOLOv8 object detection, a pedestrian-style button, and a set of high-brightness LEDs acting as “awareness indicators.” When the system detects a vehicle approaching from the side, the LEDs activate to warn a crossing pedestrian. The user can also press a button to simulate “requesting to cross.”
+I created a **real time intersection awareness system** using the NVIDIA Jetson Orin Nano, a live camera feed from a usb webcam, the YOLOv8 object detection model, a push button for pedestrians, and a set of LED traffic lights. When the system detects a vehicle approaching from the side street, the camera picks it up, the yolo model detects a car, and a state machine triggers a cycle of the intersection. The user can also press a button to simulate a pedestrian requesting to cross.
 
-This prototype shows how computer vision and embedded hardware can work together to support **safer, more informed crossing decisions**, especially in complex or low-visibility areas.
-
-For this project, I designed and built a complete **smart intersection simulation** using:
+The materials used for this project are:
 
 - A **Jetson Orin Nano Super Dev Kit**
-- **YOLOv8 (ONNX)** real-time object detection
+- **YOLOv8** real-time object detection
 - **Push-button input** for pedestrian crossing
 - **LED traffic-light modules**
-- A **Python controller** that synchronizes everything using shared files and atomic writes
+- A **Python controller** that synchronizes everything using shared files
 
 ---
-
-## Background & Motivation
 
 ### Traditional Traffic Detection  
 Most legacy traffic intersections rely on **inductive loop sensors** embedded in the road. These work by detecting disturbances in a magnetic field when a vehicle sits above the loop. While reliable, they come with significant downsides:
@@ -46,8 +42,6 @@ Computer vision offers several advantages:
 - **Cheaper for prototyping** — a single camera + embedded board replaces multiple sensors  
 
 My motivation for this project came from wanting to re-create a complete AI-driven intersection system using **only low-cost hardware and open-source tools**—something that simulates real-world infrastructure challenges but is hands-on and understandable at a student level.
-
-### Why the Jetson Orin Nano?
 
 NVIDIA’s Jetson Orin Nano is a compact, power-efficient edge AI computer. It’s powerful enough to run **real-time YOLO detection** while simultaneously executing hardware control logic—making it ideal for embedded robotics, smart devices, and in this case, a vision-driven intersection controller.
 
