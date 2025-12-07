@@ -43,9 +43,9 @@ The communication backbone relies on a **TJA1042 Transceiver**. To ensure data i
 * **Differential Routing:** Routed `CAN_H` and `CAN_L` as a tightly coupled differential pair with length matching to ensure synchronization.
 
 #### **3. RF & Signal Integrity**
-For the GNSS (GPS) module, the signal path from the module to the SMA connector required careful attention. I routed the RF trace away from the noisy switching power supply and ensured a continuous ground plane reference on the layer beneath to maintain characteristic impedance.
+For the GNSS (GPS) module, the signal path from the module to the SMA connector required careful attention. I routed the RF trace away from the noisy switching power supply and ensured a continuous ground plane reference on the layer beneath to maintain the necessary impedance.
 
-I also utilized **System Partitioning** for the thermal sensors. Instead of relying solely on onboard sensors, I designed external I2C interfaces with local power and pull-ups, allowing the unit to monitor remote vehicle components (like battery cells) rather than just PCB ambient temperature.
+I also integrated **external connectors** for the thermal sensors. Instead of relying solely on onboard sensors, I designed external I2C interfaces with local power and pull-ups, allowing the unit to monitor remote vehicle components (like battery cells) rather than just PCB ambient temperature. Additionally, there is an onboard thermistor to monitor the board temperature under operation located right next to the MCU and power area.
 
 ![PCB Zoning Strategy](/assets/img/Gemini_Generated_Image_v5elc5v5elc5v5el.png)
 *Figure 3: PCB Layout highlighting the strict zoning of Analog, Digital, and Power domains.*
