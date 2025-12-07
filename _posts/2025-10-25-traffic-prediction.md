@@ -9,14 +9,23 @@ author: Dylan Cunliffe
 
 ## Overview
 
-**Sea-to-School Forecasting** is a full end-to-end commute prediction system built to estimate travel time from **West Vancouver → UBC** using:
+My daily commute from **West Vancouver to UBC** is influenced by:
 
-- A custom **ESP32 embedded device** for GPS data collection  
-- A c-based **prediction engine**  
-- A **segment-based route algorithm**  
-- A pipeline for historical data analysis  
+- Bridge congestion  
+- Traffic choke points  
+- Time-of-day patterns  
+- Campus-specific traffic flows  
 
-The project combines embedded systems, data engineering, and predictive modelling into a full stack system backed by real commute data.
+Leaving with even a few minutes difference can lead to large differences in total travel time. In the interest of minimizing how much time I spend sitting in traffic and trying to optimize my departure time to be as efficient as possible without being late, I decided to take on this project. The objective was to build a system that answers:
+
+> **“If I left right now, how long would my commute take?”**
+
+To accomplish this, I built: **Sea-to-School Forecasting**. A full end-to-end commute prediction system built to estimate travel time from **West Vancouver → UBC** using:
+
+- A custom **ESP32 embedded device** for GPS data collection
+- A **segment-based statistical algorithm**    
+- A c-based **prediction engine**
+- Real-time **drive duration prediction outputs**
 
 ---
 
@@ -44,28 +53,6 @@ C Data Processing Program
 
 Full source code:  
 **[Github Link](https://github.com/dylancunliffe/sea-to-school-forecasting)**
-
----
-
-## Motivation
-
-The commute from **West Vancouver to UBC** is influenced by:
-
-- Bridge congestion  
-- Traffic choke points  
-- Time-of-day patterns  
-- Campus-specific traffic flows  
-
-The objective was to build a system that answers:
-
-> **“If I left right now, how long would my commute take?”**
-
-To accomplish this, I built:
-
-1. A physical embedded device to record commute times  
-2. A data pipeline to clean and segment the route data 
-3. A prediction engine that models traversal durations  
-4. A system that can be extended to real-time edge forecasting  
 
 ---
 
@@ -211,8 +198,6 @@ Each segment boundary corresponds to GPS-detected distance thresholds.
 
 ![Segment Map](/assets/img/traffic-prediction.png) 
 **Map of the different segment boundaries.**
-
-
 
 ---
 
