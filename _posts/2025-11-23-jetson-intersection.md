@@ -7,41 +7,26 @@ tags: [AI, Machine Learning, Embedded Programming]
 author: Dylan Cunliffe
 ---
 
+> *[Insert video: Full demonstration — Car detected → Pedestrian waits → Crossing allowed]*
+
 ## 🚦 Overview and Motivation
 
 Modern urban intersections are chaotic environments. My project aims to demonstrate how low-cost embedded systems can contribute to **safer and more intelligent intersections**.
 
 I created a **real time intersection awareness system** using the NVIDIA Jetson Orin Nano, a live camera feed from a usb webcam, the YOLOv8 object detection model, a push button for pedestrians, and a set of LED traffic lights. When the system detects a vehicle approaching from the side street, the camera picks it up, the yolo model detects a car, and a state machine triggers a cycle of the intersection. The user can also press a button to simulate a pedestrian requesting to cross.
 
+My motivation for this project came from wanting to re-create a complete AI-driven intersection system using **only low-cost hardware and open-source tools**—something that simulates real-world infrastructure challenges but is hands-on and understandable at a student level.
+
 The materials used for this project are:
 
 - A **Jetson Orin Nano Super Dev Kit**
+- A **USB webcam** to watch the intersection
 - **YOLOv8** real-time object detection
 - **Push-button input** for pedestrian crossing
 - **LED traffic-light modules**
+- 330–1kΩ **resistors**
+- Jumper wires + **breadboard**  
 - A **Python controller** that synchronizes everything using shared files
-
----
-
-### Traditional Traffic Detection  
-Most legacy traffic intersections rely on **inductive loop sensors** embedded in the road. These work by detecting disturbances in a magnetic field when a vehicle sits above the loop. While reliable, they come with significant downsides:
-
-- **Expensive installation** — requires cutting into pavement  
-- **Difficult maintenance** — pavement cracks, weather damage, and resurfacing often break loops  
-- **Single-purpose** — they detect only vehicle presence, not type, speed, or configuration  
-- **No pedestrian awareness** — separate hardware is required  
-
-Some systems use **radar**, **microwave sensors**, or **infrared**, but these add cost and still lack visual data.
-
-### Why Vision-Based Detection?
-Computer vision offers several advantages:
-
-- **Non-invasive** — no trenching or installing in-road hardware  
-- **Adaptable** — detect cars, bikes, pedestrians, buses, or anything a model is trained for  
-- **Upgradeable** — improve via model updates instead of hardware replacements  
-- **Cheaper for prototyping** — a single camera + embedded board replaces multiple sensors  
-
-My motivation for this project came from wanting to re-create a complete AI-driven intersection system using **only low-cost hardware and open-source tools**—something that simulates real-world infrastructure challenges but is hands-on and understandable at a student level.
 
 NVIDIA’s Jetson Orin Nano is a compact, power-efficient edge AI computer. It’s powerful enough to run **real-time YOLO detection** while simultaneously executing hardware control logic—making it ideal for embedded robotics, smart devices, and in this case, a vision-driven intersection controller.
 
@@ -55,6 +40,14 @@ work in progress
 > - *PHOTO 2 — Close-up of wiring to the GPIO header*
 > - *PHOTO 3 — LED traffic lights operating during detection*
 > - *PHOTO 4 — Terminal showing YOLO output*
+
+---
+
+### Behavior summary
+
+1. When YOLO detects vehicles on the side street, a car request is created. The main road completes the minimum green, then transitions to side green. Side green is extended adaptively while vehicles are present (to a maximum). The main green will not resume until all cars have left the intersection. This improves safety, ensuring the main street cars are not given a green, if other cars are still trying to turn.
+2. Pedestrian button latches a guaranteed pedestrian time; if cars are present, the pedestrian waits until safe. If the pedestrian initiates the request, the side green is given for a minimum amount of time, longer than the minimum given for a car initiated request, to ensure the pedestrian is given sufficient time to cross.
+3. Once all cars/pedestrians from the side street are clear of the intersection, the main green will resume, and will remain green until the next request is initiated.
 
 ---
 
@@ -77,22 +70,8 @@ Camera → YOLOv8 Detector → Shared File → Main Intersection Controller → 
 2. **Intersection Controller (`main_controller.py`)**  
    - Reads the shared detection file  
    - Monitors a pedestrian button  
-   - Drives LEDs indicating whether it’s safe to cross  
-
-File writing prevents corrupted reads and ensures consistent hardware behavior.
-
-- **YOLOv8 Object Detection Script**
-  Continuously writes `"1"` or `"0"` to `/tmp/side_detected.txt` using file writes.
-
-- **Button Reader**
-  Reports the pedestrian button’s state.
-
-- **Main Controller**
-  Reads both inputs and decides whether to allow:
-  - Normal vehicle flow
-  - Pedestrian walk phase
-  - Delayed crossing if vehicles are present
-
+   - Drives LEDs indicating whether it’s safe to cross
+   
 ---
 
 > *[Insert photo: Camera view with YOLO bounding boxes]*
@@ -138,25 +117,6 @@ while True:
 cap.release()
 cv2.destroyAllWindows()
 ```
-
----
-
-### Components Used  
-- Jetson Orin Nano Super Dev Kit  
-- USB or CSI camera  
-- High-brightness LEDs  
-- 330–1kΩ resistors  
-- Active-high pushbutton  
-- Jumper wires + breadboard  
-
-### Wiring  
-- Button wired **active high**:  
-  - One side → **3.3V**  
-  - Other side → **GPIO input pin**  
-  - Same pin → **10kΩ pulldown** to GND  
-- LEDs driven through current-limiting resistors from GPIO outputs  
-
-This ensures clean, stable digital readings with no floating.
 
 ---
 
@@ -236,22 +196,16 @@ if state == "MAIN_GREEN":
 
 > *[Insert video: Full demonstration — Car detected → Pedestrian waits → Crossing allowed]*
 
-### Behavior summary
-
-1. When YOLO detects vehicles on the side street, a car request is created. The main road completes the minimum green, then transitions to side green. Side green is extended adaptively while vehicles are present (up to a max).
-2. Pedestrian button latches a guaranteed pedestrian time; if cars are present, the pedestrian waits until safe.
-3. Uses atomic file writes to prevent race conditions between detector and controller.
-
 ---
 
 ## 6. Key Takeaways
 
 **Skills & techniques demonstrated:**
 
-* Embedded AI on **Jetson Orin Nano** (YOLOv8, ONNX, TensorRT acceleration options)
+* Embedded AI on **Jetson Orin Nano** (YOLOv8, ONNX, TensorRT acceleration)
 * Robust **GPIO** and device-tree handling for custom pinmux needs
-* Designing deterministic **finite-state machines** for safety-critical timing
-* **Atomic inter-process communication** via temp-file swap
+* Designing deterministic **finite-state machines** for timing
+* **File write communication** to allow the programs to talk to each other
 * **Hardware prototyping:** LEDs, resistors, button wiring, circuit diagrams
 
 ---
@@ -259,11 +213,10 @@ if state == "MAIN_GREEN":
 ## 7. Future Improvements
 
 * Add more cameras for a full intersection system
-* Add redundant sensors (ultrasonic/loop) for safety
-* Move detection → shared memory or IPC for lower latency
+* Add redundant sensors for safety
+* Move detection to shared memory for lower latency
 * Add a small pedestrian countdown display
-* Improve model accuracy/speed with quantization (INT8 TensorRT)
-* Create a polished GitHub repo + documentation and downloadable images/videos
+* Improve model accuracy/speed with GPU accelerated optimization
 
 ---
 
