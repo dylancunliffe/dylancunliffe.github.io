@@ -27,6 +27,15 @@ To accomplish this, I built: **Sea-to-School Forecasting**. A full end-to-end co
 - A c-based **prediction engine**
 - Real-time **drive duration prediction outputs**
 
+
+### System Flow  
+1. **ESP32 device logs a commute**  
+2. Data is saved to SD as `.csv`  
+3. C pipeline parses + cleans it  
+4. Segments are computed  
+5. Statistics updated  
+6. Prediction engine outputs total commute time  
+
 ---
 
 ## Project Structure
@@ -283,19 +292,6 @@ Further suggested visualizations:
 - Box plots of morning vs afternoon traffic  
 - Route animation using GPS points  
 
-
----
-
-## Architecture
-
-### System Flow  
-1. **ESP32 device logs a commute**  
-2. Data is saved to SD as `.csv`  
-3. C pipeline parses + cleans it  
-4. Segments are computed  
-5. Statistics updated  
-6. Prediction engine outputs total commute time  
-
 ---
 
 ## Future Work
@@ -307,18 +303,3 @@ Further suggested visualizations:
 - Automate segment detection using clustering  
 - Improve hardware reliability & smoothing  
 - Add cloud storage + long-term trend analysis  
-
----
-
-## Closing Notes
-
-This project demonstrates cross-domain engineering:
-
-- Embedded systems  
-- Real-world data collection  
-- Time-series modelling  
-- Route segmentation  
-- Predictive analytics  
-
-It forms the basis for a fully deployable real-time commute prediction system.
-
