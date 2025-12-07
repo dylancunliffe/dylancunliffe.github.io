@@ -33,8 +33,8 @@ The system is partitioned into three distinct electrical zones to minimize noise
 #### **1. Automotive Power Design & Protection**
 A standard vehicle 12V rail is noisy. To ensure the 3.3V logic remained stable during voltage transients:
 * **DC-DC Buck Conversion:** Replaced inefficient linear regulators with a Switching Regulator (Buck Converter) to maximize efficiency and minimize heat.
-* **Protection Circuitry:** Implemented a **Schottky diode** for reverse polarity protection (preventing damage during battery installation) and input bulk capacitance to filter alternator ripple.
-* **Loop Optimization:** In the layout, I minimized the surface area of the high-current switching loop (Input Cap $\rightarrow$ Buck $\rightarrow$ Diode) to reduce radiated EMI.
+* **Protection Circuitry:** Implemented a **Schottky diode** for reverse polarity protection (preventing damage during battery installation) and input bulk capacitance to filter noise.
+* **Loop Optimization:** In the layout, I minimized the surface area of the high-current switching loop (input Cap > buck converter > diode) to reduce EMI.
 
 #### **2. High-Speed Differential Signaling (CAN Bus)**
 The communication backbone relies on a **TJA1042 Transceiver**. To ensure data integrity over long cable runs:
