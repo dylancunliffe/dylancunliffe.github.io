@@ -54,9 +54,3 @@ I also integrated **external connectors** for the thermal sensors. Instead of re
 
 ### **Result**
 The final design is a compact, 2-layer PCB routed in **Altium Designer**.
-
-### **Tools & Technologies**
-* **EDA:** Altium Designer
-* **MCU:** STM32G0B1 (ARM Cortex-M0+)
-* **Protocols:** CAN (ISO 11898), UART, I2C
-* **Hardware Skills:** Buck Converters, Differential Pair Routing, Impedance Control, DFM (Design for Manufacturing).
