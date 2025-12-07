@@ -38,9 +38,9 @@ A standard vehicle 12V rail is noisy. To ensure the 3.3V logic remained stable d
 
 #### **2. High-Speed Differential Signaling (CAN Bus)**
 The communication backbone relies on a **TJA1042 Transceiver**. To ensure data integrity over long cable runs:
-* **Split Termination:** Implemented a split termination network to improve common-mode noise rejection.
-* **Transient Protection:** Added **TVS Diodes (PESD1CAN)** immediately at the connector entry to shunt high-voltage ESD spikes before they reach the transceiver.
-* **Differential Routing:** Routed `CAN_H` and `CAN_L` as a tightly coupled differential pair with length matching to ensure phase synchronization and impedance control.
+* **Split Termination:** Implemented a split termination network to improve noise rejection.
+* **Transient Protection:** Added **TVS Diodes** immediately at the connector entry to shunt high-voltage spikes before they reach the transceiver.
+* **Differential Routing:** Routed `CAN_H` and `CAN_L` as a tightly coupled differential pair with length matching to ensure synchronization.
 
 #### **3. RF & Signal Integrity**
 For the GNSS (GPS) module, the signal path from the module to the SMA connector required careful attention. I routed the RF trace away from the noisy switching power supply and ensured a continuous ground plane reference on the layer beneath to maintain characteristic impedance.
