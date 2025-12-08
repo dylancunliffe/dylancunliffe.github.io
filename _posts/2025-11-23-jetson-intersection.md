@@ -7,7 +7,7 @@ tags: [AI, Machine Learning, Embedded Programming]
 author: Dylan Cunliffe
 ---
 
-> *[Insert video: Full demonstration — Car detected → Pedestrian waits → Crossing allowed]*
+- insert video demo
 
 ## 🚦 Overview and Motivation
 
