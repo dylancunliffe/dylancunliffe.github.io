@@ -28,18 +28,14 @@ The materials used for this project are:
 - Jumper wires + **breadboard**  
 - A **Python controller** that synchronizes everything using shared files
 
-NVIDIA’s Jetson Orin Nano is a compact, power-efficient edge AI computer. It’s powerful enough to run **real-time YOLO detection** while simultaneously executing hardware control logic—making it ideal for embedded robotics, smart devices, and in this case, a vision-driven intersection controller.
+NVIDIA’s Jetson Orin Nano is a compact, power-efficient edge AI computer. It’s powerful enough to run **real-time YOLO detection** while simultaneously executing hardware control logic, making it ideal for embedded robotics, smart devices, and in this case, a computer vision intersection controller.
 
 ---
 
 ## Project Setup
 
 work in progress
-> **[Insert the following photos]:**
-> - *PHOTO 1 — Full intersection setup (Jetson, LEDs, button, camera)*
-> - *PHOTO 2 — Close-up of wiring to the GPIO header*
-> - *PHOTO 3 — LED traffic lights operating during detection*
-> - *PHOTO 4 — Terminal showing YOLO output*
+> **photo of full intersection, closeup of wiring, led traffic lights during operation, terminal showing the yolo output**
 
 ---
 
@@ -74,7 +70,7 @@ Camera → YOLOv8 Detector → Shared File → Main Intersection Controller → 
    
 ---
 
-> *[Insert photo: Camera view with YOLO bounding boxes]*
+> *insert photo of camera view with the bounding boxes*
 
 ### Code — YOLO Detector (`yolo_detect.py`) (excerpt)
 
@@ -120,7 +116,7 @@ cv2.destroyAllWindows()
 
 ---
 
-> *[Insert circuit diagram/photo: Pedestrian Push-Button Wiring]*
+> *insert circuit diagram*
 
 ## 3. Pedestrian Button Input
 
@@ -194,7 +190,7 @@ if state == "MAIN_GREEN":
 
 ## 5. Results & Demo
 
-> *[Insert video: Full demonstration — Car detected → Pedestrian waits → Crossing allowed]*
+> *insert full video demo*
 
 ---
 
@@ -222,4 +218,4 @@ if state == "MAIN_GREEN":
 
 ### 📁 Repo
 
-* **GitHub repo:** [Insert link once uploaded]
+* **GitHub repo:** [work in progress]
