@@ -74,6 +74,8 @@ Camera → YOLOv8 Detector → Shared File → Main Intersection Controller → 
 
 ![YOLO Detection View](/assets/img/WIN_20251230_22_51_28_Pro.jpg)
 
+![YOLO Detection View](assets/img/oaijseoijsv.mp4)
+
 ### Code — YOLO Detector (`yolo_detect.py`) (excerpt)
 
 ```python
