@@ -123,8 +123,6 @@ cv2.destroyAllWindows()
 
 ---
 
-> *insert circuit diagram*
-
 ## 3. Pedestrian Button Input
 
 ### Code — Button Reader
@@ -197,8 +195,10 @@ if state == "MAIN_GREEN":
 
 ## 5. Results & Demo
 
-> *insert full video demo*
-
+<video width="100%" height="auto" controls autoplay loop muted>
+  <source src="{{ 'assets/img/intersectiondemovideo.mp4' | relative_url }}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 ---
 
 ## 6. Key Takeaways
