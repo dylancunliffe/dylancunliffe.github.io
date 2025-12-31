@@ -37,8 +37,6 @@ NVIDIAâ€™s Jetson Orin Nano is a compact, power-efficient edge AI computer. Itâ€
 
 ## Project Setup
 
-work in progress
-> **photo of full intersection, closeup of wiring, led traffic lights during operation, terminal showing the yolo output**
 ![Setup](assets/img/WIN_20251230_22_45_14_Pro.jpg)
 ![Setup](assets/img/WIN_20251230_22_44_47_Pro.jpg)
 
