@@ -7,7 +7,7 @@ tags: [AI, Machine Learning, Embedded Programming]
 author: Dylan Cunliffe
 ---
 
-- insert video demo
+![Setup](assets/img/intersectiondemovideo.mp4)
 
 ## 🚦 Overview and Motivation
 
@@ -36,6 +36,8 @@ NVIDIA’s Jetson Orin Nano is a compact, power-efficient edge AI computer. It�
 
 work in progress
 > **photo of full intersection, closeup of wiring, led traffic lights during operation, terminal showing the yolo output**
+![Setup](assets/img/WIN_20251230_22_45_14_Pro.jpg)
+![Setup](assets/img/WIN_20251230_22_44_47_Pro.jpg)
 
 ---
 
@@ -70,7 +72,7 @@ Camera → YOLOv8 Detector → Shared File → Main Intersection Controller → 
    
 ---
 
-> *insert photo of camera view with the bounding boxes*
+![YOLO Detection View](/assets/img/WIN_20251230_22_51_28_Pro.jpg)
 
 ### Code — YOLO Detector (`yolo_detect.py`) (excerpt)
 
