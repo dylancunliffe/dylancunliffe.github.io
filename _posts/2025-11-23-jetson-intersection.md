@@ -7,7 +7,10 @@ tags: [AI, Machine Learning, Embedded Programming]
 author: Dylan Cunliffe
 ---
 
-![Setup](assets/img/intersectiondemovideo.mp4)
+<video width="100%" height="auto" controls autoplay loop muted>
+  <source src="{{ 'assets/img/intersectiondemovideo.mp4' | relative_url }}" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## 🚦 Overview and Motivation
 
@@ -74,7 +77,9 @@ Camera → YOLOv8 Detector → Shared File → Main Intersection Controller → 
 
 ![YOLO Detection View](/assets/img/WIN_20251230_22_51_28_Pro.jpg)
 
-![YOLO Detection View](assets/img/oaijseoijsv.mp4)
+<video width="100%" height="auto" controls>
+  <source src="{{ 'assets/img/oaijseoijsv.mp4' | relative_url }}" type="video/mp4">
+</video>
 
 ### Code — YOLO Detector (`yolo_detect.py`) (excerpt)
 
