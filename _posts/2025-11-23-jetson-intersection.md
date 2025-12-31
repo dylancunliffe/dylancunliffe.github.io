@@ -225,4 +225,4 @@ if state == "MAIN_GREEN":
 
 ### 📁 Repo
 
-* **GitHub repo:** [Github link](https://github.com/dylancunliffe/ai-intersection)
+* [**GitHub repo**](https://github.com/dylancunliffe/ai-intersection)
