@@ -23,8 +23,11 @@ The system is partitioned into three distinct electrical zones to minimize noise
 2.  **Digital Logic Area:** MCU, Crystal Oscillator, and Status LEDs.
 3.  **RF & Sensor Area:** GPS/GNSS path and sensitive sensor interfaces.
 
+![Schematic Architecture](/assets/img/Screenshot 2025-12-01 102052.png)
+*Figure 2: Complete schematic showing all parts of the board.*
+
 ![Schematic Architecture](/assets/img/Screenshot 2025-12-05 184651.png)
-*Figure 2: Complete System Schematic showing logical partitioning.*
+*Figure 3: Complete System Schematic showing logical partitioning.*
 
 ---
 
@@ -48,7 +51,7 @@ For the GNSS (GPS) module, the signal path from the module to the SMA connector 
 I also integrated **external connectors** for the thermal sensors. Instead of relying solely on onboard sensors, I designed external I2C interfaces with local power and pull-ups, allowing the unit to monitor remote vehicle components (like battery cells) rather than just PCB ambient temperature. Additionally, there is an onboard thermistor to monitor the board temperature under operation located right next to the MCU and power area.
 
 ![PCB Zoning Strategy](/assets/img/Gemini_Generated_Image_v5elc5v5elc5v5el.png)
-*Figure 3: PCB Layout highlighting the strict zoning of Analog, Digital, and Power domains.*
+*Figure 4: PCB Layout highlighting the strict zoning of Analog, Digital, and Power domains.*
 
 ---
 
