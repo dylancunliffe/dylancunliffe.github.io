@@ -24,7 +24,7 @@ The system is partitioned into three distinct electrical zones to minimize noise
 3.  **RF & Sensor Area:** GPS/GNSS path and sensitive sensor interfaces.
 
 ![Schematic Architecture](/assets/img/Screenshot 2025-12-01 102052.png)
-*Figure 2: Complete schematic showing all parts of the board.*
+*Figure 2: Complete schematic showing all parts of the board. I've since learned how to make the schematic cleaner using ports.*
 
 ![Schematic Architecture](/assets/img/Screenshot 2025-12-05 184651.png)
 *Figure 3: Complete System Schematic showing logical partitioning.*
