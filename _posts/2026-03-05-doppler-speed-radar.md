@@ -51,7 +51,7 @@ Firmware
 ## 📂 Repository
 
 Full source code and manufacturing files:  
-**[Github Link](https://github.com/dylancunliffe/doppler-radar-hardware)**
+**[Github Link](WIP)**
 
 ---
 
@@ -68,7 +68,7 @@ If uncorrected, the op-amp would apply the 175x multiplier to the DC bias as wel
 
 *Note: The feedback network also utilizes a 270 pF capacitor in parallel with a 174 kΩ resistor, forming a low-pass filter with a cutoff frequency of roughly 3.4 kHz. This physically blocks high-frequency environmental noise, optimizing the board for measuring speeds up to ~110 MPH.*
 
-**[Insert Photo of LTspice Bode plot or schematic of the analog section here]**
+**photo of lt spice**
 
 ---
 
@@ -83,7 +83,7 @@ At high frequencies (like the STM32's 170 MHz internal clock), return current ta
 - **Digital Separation:** High-speed communication lines (I2C for the display, UART for telemetry) were routed to physically adjacent Alternate Function (AF) pins on the opposite side of the STM32 package, ensuring digital traces never cross into the analog domain.
 - **Decoupling Geometry:** The `0.1 µF` decoupling capacitors were placed essentially touching the STM32's VDD and VDDA pins. Minimizing this physical distance is critical to reducing parasitic trace inductance, ensuring the microcontroller receives instantaneous current during high-frequency clock ticks.
 
-**[Insert Photo of the Altium 3D PCB render or the physical routed 2D copper here]**
+**altium 3d view**
 
 ---
 
@@ -118,7 +118,7 @@ float calculate_doppler_frequency(uint16_t* adc_buffer, uint16_t buffer_size, ui
 
 Once the frequency is isolated, the firmware applies the Doppler equation to calculate velocity and pushes the formatted integer to the I2C OLED display.
 
-**[Insert Photo of the physical board powered on with the OLED displaying a speed here]**
+**Photo of physical board**
 
 ---
 
@@ -129,7 +129,7 @@ Physical testing was conducted to validate the analog and power stages before th
 1. **Power Integrity:** Verified the AP7375 (5V) and LP5907 (3.3V) linear regulators were outputting stable voltage under load, ensuring the battery pack's 7.4V input was efficiently stepped down without switching noise.
 2. **Signal Chain Staging:** Used an oscilloscope to inject a test sine wave and verified the 1.65V DC offset was stable and the AC gain was accurately multiplying the signal without clipping against the rails.
 
-**[Insert Photo of an oscilloscope screen showing the radar waveform here]**
+**Photo of oscilloscope screen**
 
 ---
 
