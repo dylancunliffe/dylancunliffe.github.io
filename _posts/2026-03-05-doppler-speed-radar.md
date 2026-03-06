@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Mixed-Signal Doppler Radar System
-subtitle: Analog Signal Processing and PCB Design for Velocity Measurement
+subtitle: Analog Signal Processing and PCB Design for Accurate Velocity Measurement
 thumbnail-img: assets/img/PCB3D3.png
 tags: [Altium Designer, STM32, Mixed-Signal, LTspice, PCB Layout]
 author: Dylan Cunliffe
