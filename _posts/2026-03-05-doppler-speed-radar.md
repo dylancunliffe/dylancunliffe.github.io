@@ -68,7 +68,11 @@ If uncorrected, the op-amp would apply the 175x multiplier to the DC bias as wel
 
 *Note: The feedback network also utilizes a 270 pF capacitor in parallel with a 174 kΩ resistor, forming a low-pass filter with a cutoff frequency of roughly 3.4 kHz. This physically blocks high-frequency environmental noise, optimizing the board for measuring speeds up to ~110 MPH.*
 
-![LTSpice Simulation](/assets/img/image.jpg)
+![LTSpice Simulation1](/assets/img/LSTWave1.png)
+
+![LTSpice Simulation2](/assets/img/LSTWave2.png)
+
+![LTSpice Simulation3](/assets/img/LSTDiagram.png)
 
 ![PCB Schematic](/assets/img/PCBSCHEMATIC.png)
 
