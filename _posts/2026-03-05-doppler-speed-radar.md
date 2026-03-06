@@ -51,7 +51,7 @@ Firmware
 ## 📂 Repository
 
 Full source code and manufacturing files:  
-**[Github Link](WIP)**
+**[Github Link](WIP)** - Will be updated once firmware is complete
 
 ---
 
