@@ -29,29 +29,10 @@ To accomplish this, I engineered a complete hardware and firmware system:
 
 ---
 
-## Project Structure
-
-```bash
-Hardware_Design
-├── Altium_Project
-│   ├── Schematic.SchDoc       # Power tree, STM32 wiring, and Analog Signal Chain
-│   └── Layout.PcbDoc          # 4-layer mixed-signal routing and floorplanning
-└── LTspice_Simulations
-    └── Active_Bandpass.asc    # Filter frequency response and gain verification
-
-Firmware
-├── Core
-│   ├── Src
-│   │   ├── main.c             # System init, ADC DMA scheduling, and I2C display
-│   │   └── dsp_velocity.c     # Signal processing and frequency-to-speed logic
-│   └── Inc
-│       └── hardware_cfg.h     # Pin mapping and system constants
-```
-
 ## 📂 Repository
 
 Full source code and manufacturing files:  
-**[Github Link](https://github.com/dylancunliffe/doppler-speed-radar/tree/main)** - Will be updated once firmware is complete
+**[Github Link](https://github.com/dylancunliffe/doppler-speed-radar/tree/main)**
 
 ---
 
