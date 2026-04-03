@@ -90,28 +90,39 @@ At high frequencies (like the STM32's 170 MHz internal clock), return current ta
 With the hardware outputting a clean 0-3.3V analog wave, the firmware utilizes the STM32's high-speed ADC to sample the signal.
 
 ### Example DSP Snippet
-Rather than blocking the CPU to read every individual voltage point, the ADC is configured to use Direct Memory Access (DMA) to continuously fill a buffer in the background. Once the buffer is full, a zero-crossing algorithm (or FFT) determines the dominant frequency.
+Rather than blocking the CPU to read every individual voltage point, the ADC is configured to use Direct Memory Access (DMA) to continuously fill a buffer in the background. Once the buffer is full, a fast fourier transform algorithm determines the dominant frequency.
 
 ```c
-// Calculate frequency based on zero-crossings in the ADC buffer
-float calculate_doppler_frequency(uint16_t* adc_buffer, uint16_t buffer_size, uint32_t sample_rate) {
-    uint16_t zero_crossings = 0;
-    uint16_t dc_offset = 2048; // 1.65V virtual ground on a 12-bit ADC (4096 / 2)
-    
-    for (uint16_t i = 1; i < buffer_size; i++) {
-        // Detect if the wave crossed the DC bias threshold
-        if ((adc_buffer[i-1] < dc_offset && adc_buffer[i] >= dc_offset) || 
-            (adc_buffer[i-1] > dc_offset && adc_buffer[i] <= dc_offset)) {
-            zero_crossings++;
-        }
-    }
-    
-    // Convert crossings to full wave cycles, then to Hz
-    float cycles = (float)zero_crossings / 2.0f;
-    float time_window = (float)buffer_size / (float)sample_rate;
-    
-    return cycles / time_window;
-}
+if(data_ready_flag != 0){
+					  if(data_ready_flag == 1){
+						  current_buffer_ptr = &ADC_BUFFER[0];
+					  }
+					  if(data_ready_flag == 2){
+						  current_buffer_ptr = &ADC_BUFFER[1024];
+					  }
+					  for(int i = 0; i < 1024; i++){
+						  ADC_FLOAT[i] = (float32_t)current_buffer_ptr[i]; // Convert to float
+						  ADC_FLOAT[i] -= 2048.0f; // Deal with DC offset
+					  }
+
+					  arm_rfft_fast_f32(&S, ADC_FLOAT, fft_output, 0); // Forward FFT
+					  arm_cmplx_mag_f32(fft_output, fft_mag, 512); // Calculate magnitudes of the complex frequencies
+
+					  arm_max_f32(&fft_mag[5], 512 - 5, &max_mag, &max_mag_index); // findmax
+
+					  // Calculate the velocity
+					  if(max_mag > 20000.0f) {
+						  velocity = c * ((max_mag_index + 5.0f) * (10000.0f / 1024.0f)) / (2.0f * 10.525e9f);
+						  velocity *= 3.6f;
+					  }
+					  else {
+						  velocity = 0.0f;
+					  }
+
+					  data_ready_flag = 0;
+
+					  // Scale float to maintain decimal point
+					  uint16_t velocity_int = (uint16_t)(velocity * 10.0f);
 ```
 
 Once the frequency is isolated, the firmware applies the Doppler equation to calculate velocity and pushes the formatted integer to the I2C OLED display.
