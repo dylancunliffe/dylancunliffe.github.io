@@ -9,20 +9,20 @@ author: Dylan Cunliffe
 
 ## Overview
 
-This project was the second project in my Elec 291 course at UBC. The objective of this project was to engineer a robust, autonomous car and remote control system from the ground up. To achieve this, our team developed a distributed architecture spanning **four custom-designed PCBs**, bare-metal STM32 firmware, and a custom Python telemetry bridge.
+This project was the second project in my Elec 291 course at UBC. The objective of this project was to engineer a robust, autonomous car and remote control system from the ground up. To achieve this, our team developed a distributed architecture spanning **four custom-designed PCBs**, bare-metal STM32 and EFM8 firmware, and a custom Python control bridge.
 
 The system features:
-- **Magnetic Line Following** utilizing a tuned proportional-derivative (PD) controller.
+- **Magnetic Line Following** utilizing inductor sensors and a tuned proportional-derivative (PD) controller.
 - **Real-Time Object Avoidance** driven by a non-blocking, hardware-timed Time-of-Flight (ToF) I2C driver.
 - **Custom 32-bit IR & Long-Range RF Protocols** capable of transmitting through concrete walls.
-- **Arcade-Style Control** and seamless switching between autonomous AI and manual remote control.
+- **Arcade-Style Control** and easy switching between autonomous AI and manual remote control.
 
 ### System Flow
 1. **Sensors** continuously sample track data (via ADC/DMA) and obstacle distance (via ToF).
 2. **STM32 FSM (Finite State Machine)** evaluates inputs without blocking the CPU to determine the operational state (`FOLLOW_TRACK`, `AVOID_OBSTACLE`, `MANUAL_DRIVE`).
 3. **PD Controller** calculates required motor compensation and directly writes to hardware PWM registers (`CCR`).
 4. **Python Bridge** receives real-time diagnostic data and allows a Python UI or custom Remote Controller to override the AI via nRF24 or IR signals.
-5. **Speed Radar (Sub-System)** monitors vehicle velocity using a custom mixed-signal Doppler radar board.
+5. **Speed Radar** monitors vehicle velocity using a custom mixed-signal Doppler radar board.
 
 ---
 
