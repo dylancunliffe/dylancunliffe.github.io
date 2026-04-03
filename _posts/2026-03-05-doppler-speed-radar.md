@@ -96,6 +96,7 @@ Combining the Bin Width math with the Doppler physics equation yields the exact,
 // (Index * Hz_per_bin) yields f_d.
 // Multiplied by (c / 2*f_0) yields velocity in m/s.
 velocity = c * ((max_mag_index + 5.0f) * (10000.0f / 1024.0f)) / (2.0f * 10.525e9f);
+```
 
 ### The DC Saturation Challenge
 During the initial schematic design, the amplifier was configured in a standard non-inverting topology with a gain of ~175. However, this introduced a critical mathematical flaw: the 1.65V DC bias was being fed directly into the non-inverting input. 
