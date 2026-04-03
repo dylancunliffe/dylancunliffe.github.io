@@ -66,7 +66,7 @@ A dedicated front-end FSM handles inputs from a custom 4x4 keypad. It includes d
 ### The Core Oven Controller FSM
 Driven by a 1ms hardware timer interrupt, this 6-stage FSM manages the physical state of the oven. We utilized an on-off control strategy, deactivating the heater slightly below target temperatures to prevent overshoot caused by the oven's latent thermal inertia.
 
-> ![FSM](/assets/img/assets/img/rocfsm.png)
+> ![FSM](/assets/img/rocfsm.png)
 
 ```assembly
 ; Snippet: Soak Stage Temperature Control Logic
