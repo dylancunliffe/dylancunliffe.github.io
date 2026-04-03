@@ -51,7 +51,7 @@ Firmware
 ## 📂 Repository
 
 Full source code and manufacturing files:  
-**[Github Link](WIP)** - Will be updated once firmware is complete
+**[Github Link](https://github.com/dylancunliffe/doppler-speed-radar/tree/main)** - Will be updated once firmware is complete
 
 ---
 
