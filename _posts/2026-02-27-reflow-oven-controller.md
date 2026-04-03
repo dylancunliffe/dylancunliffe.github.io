@@ -7,6 +7,8 @@ tags: [8051 Assembly, Hardware Design, Control Systems, Python, UI Design]
 author: Dylan Cunliffe
 ---
 
+> **Note:** This project was completed with a team of 6 people. I will talk about the work of the group as a whole. While the group work was highly cooperative, my primary contributions dealt with thermocouple temperature validation and internal temperature calculationsm, as well as the circuitry/wiring, and team organization. I want to give credit to my team members: Jacky Chen, Olesya Kondrateva, Luke Santosham, Yasna Vafi, and Ethan Wong.
+
 ## Overview
 
 This project was developed for my ELEC 291 course at UBC. The objective was to engineer a Reflow Oven Controller, converting a standard 1500W toaster oven into a precision tool capable of following specific temperature profiles to properly mount SMD components onto PCBs. To meet strict timing and memory constraints, the firmware was written entirely in bare-metal 8051 assembly language and executed on an 8052 soft-processor running on a DE10-Lite FPGA.
@@ -100,4 +102,4 @@ To validate our system and monitor the reflow process, we developed a Python-bas
 
 ## Conclusion & Takeaways
 
-This project was an incredible exercise in embedded systems integration, bridging the gap between high-voltage hardware, precise analog sensing, and low-level microprocessor control. Successfully translating abstract control concepts into functioning 8051 assembly reinforced the importance of modular code and robust hardware testing methodologies.
+This project was a great exercise in embedded systems integration, bridging the gap between hardware, precise analog sensing, and low-level microprocessor control. Successfully translating abstract control concepts into functioning 8051 assembly reinforced the importance of modular code and robust hardware testing methodologies. Our team was rewarded for our efforts with a mark of 98% on this project!
