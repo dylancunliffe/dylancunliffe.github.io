@@ -38,53 +38,54 @@ Full source code and manufacturing files:
 
 ## The Mathematics of Doppler DSP
 
-To accurately extract velocity from a raw analog signal, the firmware cannot just rely on black-box libraries. The system must perfectly align the physical physics of the microwave shift, the hardware timing of the STM32, and the mathematical resolution of the Fast Fourier Transform (FFT).
+To accurately extract velocity from a raw analog signal, the firmware cannot just rely on black-box libraries. The system must perfectly align the underlying physics of the microwave shift, the hardware timing of the STM32, and the mathematical resolution of the Fast Fourier Transform (FFT).
 
 ### 1. The Physics: Doppler Frequency Shift
-The HB100 X-band radar module emits a continuous microwave signal at $f_0 = 10.525$ GHz. When this wave hits a moving object, it reflects back with a compressed or expanded frequency. The radar module mixes the transmitted and received signals to output the difference—the Intermediate Frequency ($f_d$).
+The HB100 X-band radar module emits a continuous microwave signal at **f<sub>0</sub> = 10.525 GHz**. When this wave hits a moving object, it reflects back with a compressed or expanded frequency. The radar module mixes the transmitted and received signals to output the difference—the Intermediate Frequency (**f<sub>d</sub>**).
 
 The governing equation for this shift is:
-$$f_d = \frac{2 v f_0}{c}$$
+**f<sub>d</sub> = (2 &times; v &times; f<sub>0</sub>) / c**
 
 Where:
-* $f_d$ = Doppler shift (Hz)
-* $v$ = Velocity of the target (m/s)
-* $f_0$ = Transmit frequency ($10.525 \times 10^9$ Hz)
-* $c$ = Speed of light ($2.9979 \times 10^8$ m/s)
+* **f<sub>d</sub>** = Doppler shift (Hz)
+* **v** = Velocity of the target (m/s)
+* **f<sub>0</sub>** = Transmit frequency (10.525 &times; 10<sup>9</sup> Hz)
+* **c** = Speed of light (2.9979 &times; 10<sup>8</sup> m/s)
 
-Rearranging this to solve for velocity gives us our fundamental DSP target. We need to isolate $f_d$ to find $v$:
-$$v = f_d \left( \frac{c}{2 f_0} \right)$$
+Rearranging this to solve for velocity gives us our fundamental DSP target. We need to isolate **f<sub>d</sub>** to find **v**:
+**v = f<sub>d</sub> &times; [ c / (2 &times; f<sub>0</sub>) ]**
 
 ### 2. The Time Domain: Sampling & Nyquist Limits
-To perform an FFT, the STM32's Analog-to-Digital Converter (ADC) must sample the waveform at a rigidly precise interval. I configured the system to sample at exactly $f_s = 10,000$ Hz (10 kHz). 
+To perform an FFT, the STM32's Analog-to-Digital Converter (ADC) must sample the waveform at a rigidly precise interval. I configured the system to sample at exactly **f<sub>s</sub> = 10,000 Hz** (10 kHz). 
 
 According to the **Nyquist-Shannon sampling theorem**, the absolute maximum frequency a digital system can measure is half its sample rate. 
-$$f_{max} = \frac{f_s}{2} = 5,000 \text{ Hz}$$
+**f<sub>max</sub> = f<sub>s</sub> / 2 = 5,000 Hz**
 
-By substituting $5,000$ Hz back into our Doppler equation, we can calculate the physical speed limit of the radar:
-$$v_{max} = 5000 \times \left( \frac{2.9979 \times 10^8}{2 \times 10.525 \times 10^9} \right) \approx 71.2 \text{ m/s (256 km/h)}$$
+By substituting 5,000 Hz back into our Doppler equation, we can calculate the physical speed limit of the radar:
+**v<sub>max</sub> = 5000 &times; [ (2.9979 &times; 10<sup>8</sup>) / (2 &times; 10.525 &times; 10<sup>9</sup>) ] &approx; 71.2 m/s (256 km/h)**
+
 A 10 kHz sample rate perfectly blankets the expected speeds of terrestrial vehicles while keeping the DMA buffer memory footprint small.
 
 To hit exactly 10,000 Hz, I configured STM32 Hardware Timer 6 to act as the ADC trigger. Running on a 16 MHz system clock, the hardware divider math is:
-$$f_{timer} = \frac{SystemClock}{(Prescaler + 1) \times (Period + 1)}$$
-$$10,000 \text{ Hz} = \frac{16,000,000}{(1 + 1) \times (799 + 1)}$$
+**f<sub>timer</sub> = SystemClock / [ (Prescaler + 1) &times; (Period + 1) ]**
+**10,000 Hz = 16,000,000 / [ (1 + 1) &times; (799 + 1) ]**
 
 ### 3. The Digital Domain: DC Offset Compensation
-Because the STM32 ADC cannot read negative voltages, the analog front-end biases the AC wave around a $1.65$V virtual ground. The 12-bit ADC ($2^{12} = 4096$ steps) maps $0$V to $0$ and $3.3$V to $4095$. 
+Because the STM32 ADC cannot read negative voltages, the analog front-end biases the AC wave around a 1.65V virtual ground. The 12-bit ADC (2<sup>12</sup> = 4096 steps) maps 0V to 0 and 3.3V to 4095. 
 
-Therefore, the $1.65$V DC baseline sits perfectly at $2048$. Before feeding the buffer to the FFT, the firmware must subtract this DC offset to re-center the wave around zero, preventing a massive energy spike at the 0 Hz FFT bin.
-$$X_{AC}[n] = X_{ADC}[n] - 2048.0$$
+Therefore, the 1.65V DC baseline sits perfectly at 2048. Before feeding the buffer to the FFT, the firmware must subtract this DC offset to re-center the wave around zero, preventing a massive energy spike at the 0 Hz FFT bin.
+**X<sub>AC</sub>[n] = X<sub>ADC</sub>[n] - 2048.0**
 
 ### 4. The Frequency Domain: FFT Resolution
-The DMA ping-pong buffer hands the CMSIS-DSP library an array of $N = 1024$ samples. When the FFT completes, it outputs a frequency spectrum divided into discrete "bins".
+The DMA ping-pong buffer hands the CMSIS-DSP library an array of N = 1024 samples. When the FFT completes, it outputs a frequency spectrum divided into discrete "bins".
 
 The width (resolution) of each bin is dictated by the sample rate and the buffer size:
-$$\text{Bin Width} = \frac{f_s}{N} = \frac{10000}{1024} \approx 9.765 \text{ Hz/bin}$$
+**Bin Width = f<sub>s</sub> / N = 10000 / 1024 &approx; 9.765 Hz/bin**
 
-Translated to physical speed, this means the radar has a hard mathematical resolution limit of $\approx 0.139$ m/s per bin.
+Translated to physical speed, this means the radar has a hard mathematical resolution limit of &approx; 0.139 m/s per bin.
 
 ### Synthesizing the Code
-In the firmware, we find the array index with the highest magnitude (the dominant frequency). Because I discard the first 5 bins (`&fft_mag[5]`) to aggressively filter out low-frequency $1/f$ noise and DC leakage, we must add $5$ back to the returned index to get the absolute bin number.
+In the firmware, we find the array index with the highest magnitude (the dominant frequency). Because I discard the first 5 bins (`&fft_mag[5]`) to aggressively filter out low-frequency 1/f noise and DC leakage, we must add 5 back to the returned index to get the absolute bin number.
 
 Combining the Bin Width math with the Doppler physics equation yields the exact, single-line C calculation used in the firmware to extract velocity:
 
