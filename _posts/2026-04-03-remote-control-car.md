@@ -26,6 +26,10 @@ The system features:
 
 ---
 
+Working on this project within a six-person engineering team required careful organization to prevent bottlenecks and hardware-software conflicts. I helped organize the team, breaking down and handing out tasks, and built the main framework for the car firmware. We modularized the bare-metal STM32 codebase to prevent Git merge conflicts, allowing team members to independently tune specific algorithms—like the PD line-follower—without breaking the core state machine. Finally, we employed a phased bring-up strategy, using oscilloscopes to independently validate signal integrity across all four custom PCBs before full system integration, ensuring physical hardware bugs were never mistaken for firmware errors.
+
+---
+
 ## 🛠 Hardware Architecture: The 4-Board Ecosystem
 
 To isolate high-current motor noise from sensitive logic lines and modularize development, the hardware was split across 4 distinct PCBs designed in Altium Designer.
