@@ -62,7 +62,7 @@ According to the **Nyquist-Shannon sampling theorem**, the absolute maximum freq
 **f<sub>max</sub> = f<sub>s</sub> / 2 = 5,000 Hz**
 
 By substituting 5,000 Hz back into our Doppler equation, we can calculate the physical speed limit of the radar:
-**v<sub>max</sub> = 5000 &times; [ (2.9979 &times; 10<sup>8</sup>) / (2 &times; 10.525 &times; 10<sup>9</sup>) ] &approx; 71.2 m/s (256 km/h)**
+**v<sub>max</sub> = 5000 &times; [ (2.9979 &times; 10<sup>8</sup>) / (2 &times; 10.525 &times; 10<sup>9</sup>) ] ≈ 71.2 m/s (256 km/h)**
 
 A 10 kHz sample rate perfectly blankets the expected speeds of terrestrial vehicles while keeping the DMA buffer memory footprint small.
 
@@ -80,9 +80,9 @@ Therefore, the 1.65V DC baseline sits perfectly at 2048. Before feeding the buff
 The DMA ping-pong buffer hands the CMSIS-DSP library an array of N = 1024 samples. When the FFT completes, it outputs a frequency spectrum divided into discrete "bins".
 
 The width (resolution) of each bin is dictated by the sample rate and the buffer size:
-**Bin Width = f<sub>s</sub> / N = 10000 / 1024 &approx; 9.765 Hz/bin**
+**Bin Width = f<sub>s</sub> / N = 10000 / 1024 ≈ 9.765 Hz/bin**
 
-Translated to physical speed, this means the radar has a hard mathematical resolution limit of &approx; 0.139 m/s per bin.
+Translated to physical speed, this means the radar has a hard mathematical resolution limit of ≈ 0.139 m/s per bin.
 
 ### Synthesizing the Code
 In the firmware, we find the array index with the highest magnitude (the dominant frequency). Because I discard the first 5 bins (`&fft_mag[5]`) to aggressively filter out low-frequency 1/f noise and DC leakage, we must add 5 back to the returned index to get the absolute bin number.
