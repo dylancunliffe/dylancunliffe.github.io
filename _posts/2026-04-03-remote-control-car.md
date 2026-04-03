@@ -78,10 +78,10 @@ A major focus for me was preventing the I2C Time-of-Flight sensor from paralyzin
 
 ```c
 void TurnMTR(int8_t horz, int8_t vert, uint8_t eco_flag) {
-    // 1. Eco mode multiplier
+    // Eco mode multiplier
     uint8_t eco_off = eco_flag ? 1 : 2;
 
-    // 2. Calculate signed power vectors for Arcade Drive
+    // Calculate signed power vectors for Arcade Drive
     int32_t left_power = ((int32_t)vert + (int32_t)horz) * 4 * eco_off;
     int32_t right_power = ((int32_t)vert - (int32_t)horz) * 4 * eco_off;
 
@@ -91,7 +91,7 @@ void TurnMTR(int8_t horz, int8_t vert, uint8_t eco_flag) {
     if(right_power > 999) right_power = 999;
     if(right_power < -999) right_power = -999;
 
-    // 3. Apply Left Motor Direction (Write directly to TIM2 Hardware Registers)
+    // Apply Left Motor Direction (Write directly to TIM2 Hardware Registers)
     if (left_power > 0) {
         TIM2->CCR1 = left_power;        // Forward
         TIM2->CCR2 = 0;
