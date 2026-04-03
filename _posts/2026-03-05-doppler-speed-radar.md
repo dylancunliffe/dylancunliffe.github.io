@@ -9,7 +9,7 @@ author: Dylan Cunliffe
 
 ## Overview
 
-Measuring the speed of moving objects using a 10.525 GHz X-band radar module is fundamentally a mixed-signal hardware challenge. The radar transceiver outputs a raw Intermediate Frequency (IF) signal based on the Doppler shift. For standard terrestrial speeds (0–100 MPH), this frequency shift sits squarely in the low audio range (tens of Hertz to a few kilohertz), but the amplitude is exceptionally weak—often in the microvolt range.
+Measuring the speed of moving objects using a 10.525 GHz X-band radar module is fundamentally a mixed-signal hardware challenge. The radar transceiver outputs a raw Intermediate Frequency (IF) signal based on the Doppler shift. For standard speeds (0–100 MPH), this frequency shift sits squarely in the low audio range (tens of Hertz to a few kilohertz), but the amplitude is exceptionally weak—often in the microvolt range.
 
 The objective of this project was to design a custom PCB from the ground up that could extract, cleanly amplify, and digitize this fragile analog sine wave while operating right next to a high-speed, noisy microcontroller.
 
@@ -23,7 +23,7 @@ To accomplish this, I engineered a complete hardware and firmware system:
 1. **Radar Module** emits 10.5 GHz wave and outputs the low-frequency IF Doppler shift.
 2. **Active Filter Stage** removes high-frequency noise and applies ~175x AC gain.
 3. **STM32G4 ADC** samples the amplified 0–3.3V analog waveform.
-4. **DSP Pipeline** calculates the frequency of the wave.
+4. **CMSIS-DSP Pipeline** executes a Fast Fourier Transform (FFT) on a continuous DMA buffer to isolate the dominant Doppler frequency..
 5. **Velocity Math** converts frequency to speed ($f_d = 2 v f_0 / c$).
 6. **OLED Display** updates the real-time speed via I2C.
 
@@ -154,5 +154,5 @@ Physical testing was conducted to validate the analog and power stages before th
 
 While the current architecture successfully isolates the analog signal and processes velocity, future revisions of this hardware could explore:
 - **Active Shielding:** Routing a dedicated ground guard ring around the high-impedance op-amp inputs to further suppress leakage currents and EMI.
-- **Hardware FFT Acceleration:** Utilizing the STM32G4's internal DSP instructions or math accelerator (CORDIC/FMAC) to offload the frequency calculations from the main Cortex-M4 core.
+- **Moving Target Indication (MTI):** Implementing a digital high-pass DC-blocking filter in firmware to aggressively reject stationary clutter (0 Hz bins) before the FFT stage, increasing the signal-to-noise ratio for moving targets.
 - **Gain Staging:** Splitting the 175x gain across three op-amp stages rather than two to increase the overall bandwidth, allowing the radar to track objects moving at much higher velocities without attenuation.
