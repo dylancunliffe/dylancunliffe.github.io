@@ -2,7 +2,7 @@
 layout: post
 title: Autonomous Multi-PCB Robot
 subtitle: Autonomous, wire following RC Car featuring IR/Radio control and communication, TOF object detection, and custom PCBs
-thumbnail-img: assets/img/RobotHeroShot.png
+thumbnail-img: assets/img/fullproject2.jpg
 tags: [Altium Designer, STM32, C, Control Systems, PCB Layout, RF Telemetry]
 author: Dylan Cunliffe
 ---
@@ -33,6 +33,8 @@ Working on this project within a six-person engineering team required careful or
 ## 🛠 Hardware Architecture: The 4-Board Ecosystem
 
 To isolate high-current motor noise from sensitive logic lines and modularize development, the hardware was split across 4 distinct PCBs designed in Altium Designer.
+
+> ![All 4 PCBs](/assets/img/project2pcbsjpg.jpg)
 
 ### 1. The Autonomous Car PCB
 A 4-layer mixed-signal board acting as the central brain and power distributor.
@@ -107,7 +109,6 @@ void TurnMTR(int8_t horz, int8_t vert, uint8_t eco_flag) {
 
 By writing the calculated vectors directly to the `CCR` (Capture/Compare) registers of the hardware timers, we bypassed software latency entirely, resulting in incredibly smooth, instantaneous maneuvers without any "jerking" or FSM lag.
 
-> insert image of car driving
 ---
 
 ## 📡 Wireless Protocols & Hardware Hacks
@@ -121,7 +122,7 @@ To ensure our Remote Controller only communicated with our specific vehicle in a
 During the bring-up of the Radio Receiver PCB, we encountered a hard physical limitation: The EFM8 microcontroller's Priority Crossbar Decoder could not route hardware SPI lines to Port 3, where the nRF24 radio was physically wired. 
 Instead of hacking up the custom PCB with jumper wires, we wrote a custom **bit-banged SPI driver** in C. By manually toggling the GPIO pins in sequence to mimic shift-register behavior, we successfully established a stable 115200 baud pipeline to the laptop without altering the physical copper.
 
-> insert image of python dashboard
+> ![3D View of the Radar PCB](/assets/img/pythondashboard.png)
 
 ---
 
