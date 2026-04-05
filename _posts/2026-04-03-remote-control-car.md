@@ -18,7 +18,7 @@ The system features:
 - **Arcade-Style Control** and easy switching between autonomous AI and manual remote control.
 
 ### System Flow
-1. **Sensors** continuously sample track data (via ADC/DMA) and obstacle distance (via ToF).
+1. **Sensors** continuously sample track data (via ADC/DMA) and obstacle distance via a Time of Flight sensor.
 2. **STM32 FSM (Finite State Machine)** evaluates inputs without blocking the CPU to determine the operational state (`FOLLOW_TRACK`, `AVOID_OBSTACLE`, `MANUAL_DRIVE`).
 3. **PD Controller** calculates required motor compensation and directly writes to hardware PWM registers (`CCR`).
 4. **Python Bridge** receives real-time diagnostic data and allows a Python UI or custom Remote Controller to override the AI via nRF24 or IR signals.
