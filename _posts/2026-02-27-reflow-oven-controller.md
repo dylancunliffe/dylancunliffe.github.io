@@ -7,7 +7,7 @@ tags: [8051 Assembly, Hardware Design, Control Systems, Python, UI Design]
 author: Dylan Cunliffe
 ---
 
-> **Note:** This project was completed with a team of 6 people. I will talk about the work of the group as a whole. While the group work was highly cooperative, my primary contributions dealt with thermocouple temperature validation and internal temperature calculationsm, as well as the circuitry/wiring, and team organization. I want to give credit to my team members: Jacky Chen, Olesya Kondrateva, Luke Santosham, Yasna Vafi, and Ethan Wong.
+> **Note:** This project was completed with a team of 6 people. While the group work was highly cooperative, my primary contributions dealt with thermocouple temperature validation and internal temperature calculations, as well as the circuitry/wiring, and team organization. I want to give credit to my team members: Jacky Chen, Olesya Kondrateva, Luke Santosham, Yasna Vafi, and Ethan Wong.
 
 ## Overview
 
