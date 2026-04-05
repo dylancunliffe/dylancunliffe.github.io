@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Autonomous Multi-PCB Robot
+title: Autonomous Multi-PCB Car and Controller
 subtitle: Autonomous, wire following RC Car featuring IR/Radio control and communication, TOF object detection, and custom PCBs
 thumbnail-img: assets/img/fullproject2.jpg
 tags: [Altium Designer, STM32, C, Control Systems, PCB Layout, RF Telemetry]
