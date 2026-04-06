@@ -29,7 +29,7 @@ To accomplish this, I engineered a complete hardware and firmware system:
 
 ---
 
-## 📂 Repository
+## Repository 📂 
 
 Full source code and manufacturing files:  
 **[Github Link](https://github.com/dylancunliffe/doppler-speed-radar/tree/main)**
