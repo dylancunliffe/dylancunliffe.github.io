@@ -34,7 +34,7 @@ Building this complex hardware-software integration required highly organized co
 
 ---
 
-## 🛠 Hardware Architecture: The Peripherals
+## Hardware Architecture: The Peripherals
 
 The hardware architecture relies on a central DE10-Lite controlling various high-voltage and analog peripherals.
 
@@ -58,7 +58,7 @@ To drastically improve the cooling decay rate compared to standard passive cooli
 
 ---
 
-## 💻 Firmware & System Dynamics
+## Firmware & System Dynamics 💻 
 
 Working in 8051 assembly required careful management of memory, clock cycles, and register banks. The software architecture is split into two primary, decoupled Finite State Machines.
 
