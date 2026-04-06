@@ -12,7 +12,7 @@ author: Dylan Cunliffe
   Your browser does not support the video tag.
 </video>
 
-## 🚦 Overview and Motivation
+## Overview and Motivation🚦 
 
 Modern urban intersections are chaotic environments. My project aims to demonstrate how low-cost embedded systems can contribute to **safer and more intelligent intersections**.
 
