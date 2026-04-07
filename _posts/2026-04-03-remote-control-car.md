@@ -7,7 +7,7 @@ tags: [Altium Designer, STM32, C, Control Systems, PCB Layout, RF Telemetry]
 author: Dylan Cunliffe
 ---
 
-> **Note:** This project was completed with a team of 6 people. While the group work was highly cooperative, my primary contributions dealt with programming the STM32 finite state machine, engineering the EFM8 radio telemetry bridge, designing the mixed-signal radar PCB, leading the hardware-software integration across the four boards, and overall project management. I want to give credit to my team members: Jacky Chen, Olesya Kondrateva, Luke Santosham, Yasna Vafi, and Ethan Wong.
+> **Note:** This project was completed with a team of 6 people. While the group work was highly cooperative, my primary contributions dealt with programming the STM32 finite state machine, engineering the EFM8 radio telemetry bridge, integrating the ToF sensor, designing the mixed-signal radar PCB, leading the hardware-software integration across the four boards, and overall project management. I want to give credit to my team members: Jacky Chen, Olesya Kondrateva, Luke Santosham, Yasna Vafi, and Ethan Wong.
 
 ## Overview
 
