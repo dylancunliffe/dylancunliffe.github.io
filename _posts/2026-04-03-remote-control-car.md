@@ -7,6 +7,8 @@ tags: [Altium Designer, STM32, C, Control Systems, PCB Layout, RF Telemetry]
 author: Dylan Cunliffe
 ---
 
+> **Note:** This project was completed with a team of 6 people. While the group work was highly cooperative, my primary contributions dealt with programming the STM32 finite state machine, engineering the EFM8 radio telemetry bridge, designing the mixed-signal radar PCB, leading the hardware-software integration across the four boards, and overall project management. I want to give credit to my team members: Jacky Chen, Olesya Kondrateva, Luke Santosham, Yasna Vafi, and Ethan Wong.
+
 ## Overview
 
 This project was the second project in my Elec 291 course at UBC. The objective of this project was to engineer a robust, autonomous car and remote control system from the ground up. To achieve this, our team developed a distributed architecture spanning **four custom-designed PCBs**, bare-metal STM32 and EFM8 firmware, and a custom Python control bridge.
