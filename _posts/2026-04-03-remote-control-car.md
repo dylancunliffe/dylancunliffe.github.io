@@ -71,7 +71,7 @@ Integrated as a diagnostic and tracking sub-system, this board handles the analo
 > ![3D View of the Radar PCB](/assets/img/PCB3D3.png)
 ---
 
-## 💻 Firmware & System Dynamics
+## Firmware & System Dynamics
 
 The firmware was written in bare-metal C. Avoiding heavy abstraction layers like RTOS or blocking `HAL_Delay()` functions was critical to maintaining high-frequency control loops.
 
