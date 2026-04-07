@@ -24,7 +24,7 @@ To accomplish this, I engineered a complete hardware and firmware system:
 2. **Active Filter Stage** removes high-frequency noise and applies ~175x AC gain.
 3. **STM32G4 ADC** samples the amplified 0–3.3V analog waveform.
 4. **CMSIS-DSP Pipeline** executes a Fast Fourier Transform (FFT) on a continuous DMA buffer to isolate the dominant Doppler frequency..
-5. **Velocity Math** converts frequency to speed ($f_d = 2 v f_0 / c$).
+5. **Velocity Math** converts frequency to speed.
 6. **OLED Display** updates the real-time speed via I2C.
 
 ---
