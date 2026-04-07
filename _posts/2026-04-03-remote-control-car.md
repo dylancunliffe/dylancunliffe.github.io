@@ -30,7 +30,7 @@ Working on this project within a six-person engineering team required careful or
 
 ---
 
-## 🛠 Hardware Architecture: The 4-Board Ecosystem
+## Hardware Architecture: The 4-Board Ecosystem
 
 To isolate high-current motor noise from sensitive logic lines and modularize development, the hardware was split across 4 distinct PCBs designed in Altium Designer.
 
@@ -111,7 +111,7 @@ By writing the calculated vectors directly to the `CCR` (Capture/Compare) regist
 
 ---
 
-## 📡 Wireless Protocols & Hardware Hacks
+## Wireless Protocols & Hardware Hacks
 
 ### 32-Bit IR Protocol
 To ensure our Remote Controller only communicated with our specific vehicle in a crowded lab environment, we developed a professional 32-bit IR communication profile. 
