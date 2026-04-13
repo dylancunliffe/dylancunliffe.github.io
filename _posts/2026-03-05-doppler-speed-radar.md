@@ -186,7 +186,8 @@ if(data_ready_flag != 0){
 
 Once the frequency is isolated, the firmware applies the Doppler equation to calculate velocity and pushes the formatted integer to the I2C OLED display.
 
-**Photo of physical board once brought up**
+![Working setup](/assets/img/IMG_4258.jpg)
+*Working setup showing OLED display, PCB, radar, and pushbutton*
 
 ---
 
@@ -197,7 +198,11 @@ Physical testing was conducted to validate the analog and power stages before th
 1. **Power Integrity:** Verified the AP7375 (5V) and LP5907 (3.3V) linear regulators were outputting stable voltage under load, ensuring the battery pack's 7.4V input was efficiently stepped down without switching noise.
 2. **Signal Chain Staging:** Used an oscilloscope to inject a test sine wave and verified the 1.65V DC offset was stable and the AC gain was accurately multiplying the signal without clipping against the rails.
 
-**Photo of oscilloscope screen during testing**
+![Soldering](/assets/img/IMG_4179.jpg)
+*Placing SMT components during hardware bring-up*
+
+![Reflowing](/assets/img/IMG_4193.jpg)
+*Reflowing PCB in a reflow oven*
 
 ---
 
