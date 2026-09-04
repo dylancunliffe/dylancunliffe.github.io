@@ -4,7 +4,6 @@ title: Ambient RF Location Authentication
 subtitle: Verifying where a device physically is, using only the radio signals already in the air
 tags: [RF, Signal Processing, Machine Learning, Embedded AI, STM32, Python]
 thumbnail-img: /assets/img/RFAuthThumbnail.jpg
-cover-img:
 ---
 
 ## Overview
