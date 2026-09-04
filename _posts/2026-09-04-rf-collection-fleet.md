@@ -3,13 +3,12 @@ layout: post
 title: Ambient-RF Data Collection Fleet
 subtitle: Hardware, Firmware, and Provisioning for 20 Autonomous FM Sensing Units
 thumbnail-img: /assets/img/enav-pcb-3d.png
-cover-img: /assets/img/enav-bench.jpg
 tags: [Altium, ESP32, Si4732, RF, Embedded Firmware, PCB Design]
 ---
 
 ## Overview
 
-Research into ambient-RF sensing needs one thing before it needs anything else: data, from many physical locations, recorded consistently, over months. That requirement is deceptively hard to satisfy. A single benchtop receiver tells you about one room. Renting twenty commercial SDR nodes is prohibitively expensive. What the work actually needed was a fleet — cheap enough to build twenty of, reliable enough to leave unattended in strangers' homes, and simple enough that a non-technical volunteer could set one up without a phone call.
+Research into ambient-RF sensing needs one thing before it needs anything else: data, from many physical locations, recorded consistently, over months. That requirement is deceptively hard to satisfy. A single benchtop receiver tells you about one room. Renting twenty commercial SDR nodes is prohibitively expensive. What the work actually needed was a fleet — cheap enough to build lots of, reliable enough to leave unattended in strangers' homes, and simple enough that a non-technical volunteer could set one up without a phone call.
 
 I designed and built that fleet: a custom Si4732 receiver PCB, ESP32 firmware with offline-first logging, a captive-portal provisioning flow aimed at people who have never heard of an ESP32, and a cloud ingest path for the data that comes back.
 
@@ -30,12 +29,6 @@ Key outcomes:
 4. Periodic scanning bursts sweep the FM broadcast band, capturing per-channel signal metrics
 5. Each reading is CRC-checked and appended to a segmented, size-bounded log on the SD card
 6. When WiFi is available, records sync to a cloud database; when it isn't, the card is collected by hand
-
----
-
-## Repository 📂
-
-*[Link to repo, if public — otherwise remove this section]*
 
 ---
 
