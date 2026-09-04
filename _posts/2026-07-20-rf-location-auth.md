@@ -74,6 +74,6 @@ I have kept this post to the physics, the methodology, and the deployment engine
 
 ## Where It's Going
 
-The dataset the current results rest on was gathered by hand, which caps how much of it there can be. To move past that I designed a low-cost receiver unit intended for deployment in numbers, so that data collection across many sites and many months can run unattended — [written up separately here](#).
+The dataset the current results rest on was gathered by hand, which caps how much of it there can be. To move past that I designed a low-cost receiver unit intended for deployment in numbers, so that data collection across many sites and many months can run unattended — [written up separately here]({% post_url 2026-09-04-rf-collection-fleet %}).
 
 Longer term, the interesting open question is temporal: the atmosphere is not random, and conditions are forecastable. Whether that structure can be anticipated rather than merely suppressed is the direction I find most interesting, and it is still an open question.
