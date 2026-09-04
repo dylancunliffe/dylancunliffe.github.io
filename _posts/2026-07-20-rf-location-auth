@@ -1,0 +1,80 @@
+---
+layout: post
+title: Ambient RF Location Authentication
+subtitle: Verifying where a device physically is, using only the radio signals already in the air
+tags: [RF, Signal Processing, Machine Learning, Embedded AI, STM32, Python]
+thumbnail-img: /assets/img/rf-auth-thumb.jpg
+cover-img: /assets/img/rf-auth-cover.jpg
+---
+
+## Overview
+
+Almost every networked device that reports a location is trusted on its word. GPS is spoofable with a few hundred dollars of commodity hardware, IP geolocation is defeated by a VPN, and a compromised device will report whatever its attacker tells it to. For most applications that is tolerable. For a system that dispatches commands to physical infrastructure, or authorizes a transaction on the condition that the user is somewhere specific, it is not — because in every one of those cases the location claim is exactly what the attacker wants to falsify.
+
+Since May 2026 I have been working at e-Radio Inc. on a different approach. Rather than asking a device where it is, measure something about its physical surroundings that is difficult to reproduce from anywhere else. The ambient radio environment turns out to be a strong candidate: it is already present, it requires no transmitter on the device, and — critically — it cannot be replayed from a different place without physically going there.
+
+This post covers the physics that makes the approach viable, how I built the validation methodology to test it honestly, and how the finished model was deployed onto a microcontroller. **The drift-suppression method at the core of the system is proprietary to e-Radio, so I describe the problem it solves rather than how it solves it.**
+
+## Why Ambient RF Encodes Position
+
+The useful property is interference.
+
+A broadcast transmitter at a fixed, known location radiates a signal that reaches a receiver by more than one route. Some energy arrives along the direct line-of-sight path. The rest arrives after reflecting off terrain, buildings, and structures — each reflection travelling a slightly longer distance and therefore arriving with a different phase. At the receiver, these copies sum.
+
+Where the phases align, the copies reinforce and the measured signal strength rises. Where they oppose, they partially cancel and it falls. The result is a spatial interference pattern — a fixed, three-dimensional structure of peaks and nulls filling the environment, determined entirely by the geometry of the transmitter, the receiver, and every reflecting surface between them.
+
+Two consequences make this useful for authentication:
+
+**The pattern is position-specific.** Because the phase relationships depend on path-length differences, and path lengths change as you move, the pattern decorrelates over roughly half a wavelength. In the commercial FM broadcast band that is on the order of a metre and a half. Move a receiver across a room and it observes a materially different pattern.
+
+**The pattern is different on every channel.** Path-length differences translate to phase differences differently at different frequencies, so the same physical geometry produces an uncorrelated interference pattern for each transmitter you can hear. A receiver monitoring many channels at once therefore collects not one measurement but many independent ones — and the combination is far more distinctive than any single channel could be.
+
+That combined vector of per-channel measurements is the fingerprint. An attacker who has stolen a device's keys still cannot produce a valid one from across town, because reproducing it would require reproducing the local geometry.
+
+## The Core Difficulty: The Fingerprint Moves
+
+If the interference pattern were static, this would be a solved problem — record the fingerprint once, compare against it forever. It is not static.
+
+The atmosphere the signals propagate through is a physical medium with a refractive index, and that index changes continuously with conditions. A small change in refractivity along a propagation path changes the effective path length. Because the fingerprint is built from *differences* in path length measured in fractions of a wavelength, changes far too small to notice in any other context are more than enough to deform the interference pattern.
+
+So the fingerprint at a fixed location is not constant. It drifts, on timescales of hours, without the receiver having moved at all.
+
+This is the central engineering problem, and the reason the naive version of this idea does not work. **A drifted fingerprint and a fingerprint from a different location look similar to any straightforward distance metric.** Set the acceptance threshold tight enough to reject a nearby impostor and you begin rejecting the legitimate device as conditions change through the day. Loosen it enough to tolerate drift and the impostor walks in. Every gain in one direction is paid for in the other, and the tradeoff is unacceptable at both ends.
+
+Making the system work means separating the component of variation that encodes *position* from the component that encodes *the state of the atmosphere* — suppressing the second while preserving the first. That separation is the proprietary part of the system and where most of my work went.
+
+## Measuring Whether It Actually Works
+
+An authentication system has two ways to fail and they are not interchangeable, so the metrics have to reflect that.
+
+A **false rejection** turns away the legitimate device — annoying, and it makes the product unusable if frequent. A **false acceptance** admits an attacker — a security failure. Accuracy as a single number is close to meaningless here, because it silently averages the two together and can be trivially inflated by an unbalanced test set.
+
+The framework I used is the standard one from biometrics. Score genuine attempts (the enrolled device at its enrolled location) and impostor attempts (any other location) against the same threshold, then sweep the threshold across its full range. Tightening it drives false acceptance down and false rejection up; loosening it does the reverse. The **equal error rate** — the point where the two curves cross — collapses that tradeoff into one comparable number, and the full curve shows how the system behaves at any operating point you might actually choose.
+
+The subtler problem was leakage, and it is where I think this kind of work most often goes quietly wrong.
+
+The obvious way to build a test set is to hold out a random sample of measurements. For this problem that is invalid. Measurements taken minutes apart share the same atmospheric conditions, so a random split puts near-duplicate samples in both training and test. The model is then evaluated on conditions it has already seen, and it reports an excellent score that describes nothing about how it will behave tomorrow — which is the only question that matters.
+
+The fix is to hold out **entire recording sessions**, separated in time from anything used to build the model. This is a much harder test, and it produces materially worse numbers than the random split. Those worse numbers are the real ones. Building the harness this way from the start was probably the single most valuable methodological decision in the project, because it meant every subsequent improvement I measured was an improvement in something real rather than an artifact of the evaluation.
+
+I extended the same idea across locations: enroll each site in the corpus in turn, score every other site against it as an impostor, and report the distribution rather than the best case. A method that works at one favourable site and nowhere else shows up immediately.
+
+## Getting the Model onto a Microcontroller
+
+The verification decision has to happen on the device — a system whose premise is that the network cannot be trusted cannot then phone a server to ask whether it is where it thinks it is. So the final model runs on an STM32 microcontroller with an integrated neural processing unit.
+
+The NPU executes **integer arithmetic only**, so the trained floating-point model has to be quantized to 8-bit integers before it can run. Quantization maps each tensor's floating-point range onto 256 discrete levels, which costs precision — the engineering question is whether it costs *accuracy*. The workflow is to quantize using a representative calibration set, then verify the integer model's outputs against the float reference on held-out data before trusting it. Quantization that looks fine on a calibration set and falls apart on real inputs is a normal failure mode, not an exotic one.
+
+Deployment also surfaced a class of problem that does not exist on a desktop. Some of the fast on-chip SRAM is power-gated by default, and weights placed there read back as garbage unless the domain is explicitly enabled first — a fault that presents as a silently wrong inference result rather than a crash or an error code. Debugging it meant working backwards from an implausible output to the memory map, which is a very different exercise from debugging a model in Python and a useful reminder that on embedded targets the model is only ever half the system.
+
+## What I'm Not Describing
+
+The drift-suppression approach at the centre of this system, the feature design, and the measured performance figures are proprietary to e-Radio Inc. and are deliberately absent here.
+
+I have kept this post to the physics, the methodology, and the deployment engineering — the parts that are either textbook or my own process. If you are evaluating this as a work sample, I am happy to talk in more depth about the validation design and the embedded work in an interview.
+
+## Where It's Going
+
+The dataset the current results rest on was gathered by hand, which caps how much of it there can be. To move past that I designed a low-cost receiver unit intended for deployment in numbers, so that data collection across many sites and many months can run unattended — [written up separately here](#).
+
+Longer term, the interesting open question is temporal: the atmosphere is not random, and conditions are forecastable. Whether that structure can be anticipated rather than merely suppressed is the direction I find most interesting, and it is still an open question.
