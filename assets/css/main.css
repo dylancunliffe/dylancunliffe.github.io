@@ -6,10 +6,11 @@
   display: flex; align-items: center; gap: 28px;
 }
 
-.intro h1 { font-size: 2rem; margin: 0 0 6px; font-weight: 800; }
-.intro-lead { font-size: 1.1rem; color: #555; margin: 0 0 8px; max-width: 760px; }
+.intro h1 { font-size: 2rem; margin: 0 0 12px; font-weight: 800; }
+.intro-lead { font-size: 1.1rem; color: #555; margin: 0 0 14px; max-width: 760px; }
 .intro-links { margin: 0; font-size: 0.95rem; }
-.intro-links a { margin-right: 18px; font-weight: 600; text-decoration: none; }
+.intro-links a { margin-right: 18px; font-weight: 600; text-decoration: none; color: #404040; }
+.intro-links a:hover { color: #0085A1; }
 .intro-links a:hover { text-decoration: underline; }
 
 .section-title {
