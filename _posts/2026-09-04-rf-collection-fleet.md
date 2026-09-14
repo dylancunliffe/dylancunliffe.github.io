@@ -2,7 +2,7 @@
 layout: post
 title: Ambient-RF Data Collection Fleet
 subtitle: Hardware, Firmware, and Provisioning for 20 Autonomous FM Sensing Units
-thumbnail-img: /assets/img/eNS-tumb.png
+thumbnail-img: /assets/img/eNS-tumb.jpg
 tags: [Altium, ESP32, Si4732, RF, Embedded Firmware, PCB Design]
 ---
 
@@ -46,7 +46,7 @@ Three problems made a PCB non-negotiable:
 
 The board is deliberately conservative: two layers, a solid ground pour, through-hole headers for the ESP32 DevKitC so a failed module can be swapped, and SMT for everything else so it can be machine-assembled.
 
-> ![eNS Altium Render](/assets/img/eNS-3d.png)
+> ![eNS Altium Render](/assets/img/eNS-3d.jpg)
 *Image: Altium 3D render of the assembled board*
 
 ---
@@ -87,7 +87,7 @@ The workaround sidesteps the oscillator entirely — drive the reference input f
 
 That history is why the production board provisions **both** clock fallbacks as always-populated zero-ohm jumpers, and why the firmware exposes reference-clock selection as a runtime, NVS-persisted setting rather than a compile-time constant. If one assembled board out of twenty needs a different reference path than the rest, that is a serial command, not a reflash and not a soldering iron.
 
-> ![Clock Solution](/assets/img/eNS-clocks.png)
+> ![Clock Solution](/assets/img/eNS-clocks.jpg)
 *Image: schematic capture of the backup clock solutions*
 
 ---
@@ -116,7 +116,7 @@ The matching network is a series coupling capacitor and a shunt inductor. Rather
 - ESD protection on the exposed antenna port
 - A user button and status LED, both reachable through the enclosure
 
-> ![ENS Layout](/assets/img/eNS-Layout.png)
+> ![ENS Layout](/assets/img/eNS-Layout.jpg)
 *Image: PCB layout*
 
 ---
@@ -205,10 +205,10 @@ The boards are machine-assembled. Reviewing the fab's polarity-confirmation rend
 
 The enclosure is a two-part 3D-printed shell with a ventilated panel, printed in PLA with the visible faces oriented against the build plate.
 
-> ![eNS Unit](/assets/img/eNS-Render-1.png)
+> ![eNS Unit](/assets/img/eNS-Render-1.jpg)
 *Image: Final production model*
 
-> ![eNS unit without lid](/assets/img/eNS-2.png)
+> ![eNS unit without lid](/assets/img/eNS-2.jpg)
 *Image: Final production unit without lid
 
 ---

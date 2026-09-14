@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Reflow Oven Controller
-subtitle: 8051-based precision temperature controller featuring custom UI, SSR power management, and Python serial telemetry
+subtitle: 8051-based temperature controller with custom UI, SSR power stage, and Python serial telemetry
 thumbnail-img: assets/img/roc1.jpg
 tags: [8051 Assembly, Hardware Design, Control Systems, Python, UI Design]
 author: Dylan Cunliffe
@@ -38,15 +38,15 @@ Building this complex hardware-software integration required highly organized co
 
 The hardware architecture relies on a central DE10-Lite controlling various high-voltage and analog peripherals.
 
-> ![System Block Diagram](/assets/img/rocblockdiagram.png)
+> ![System Block Diagram](/assets/img/rocblockdiagram.jpg)
 
 ### 1. Temperature Sensing
 We utilized a K-type thermocouple wire for thermal measurements. Because the wire produces roughly 43µV/°C, we designed a difference amplifier circuit using an OP07EPZ Op-Amp. We configured it with a gain of ~243 (using 243kΩ and 1kΩ resistors) to scale the 10.32mV max output up to ~2.5V, ensuring it remained cleanly within the microcontroller's ADC range.
 
-> ![Schematics](/assets/img/roccircuitblock.png)
-> ![Schematics](/assets/img/roccircuit1.png)
-> ![Schematics](/assets/img/roccircuit2.png)
-> ![Schematics](/assets/img/roccircuit3.png)
+> ![Schematics](/assets/img/roccircuitblock.jpg)
+> ![Schematics](/assets/img/roccircuit1.jpg)
+> ![Schematics](/assets/img/roccircuit2.jpg)
+> ![Schematics](/assets/img/roccircuit3.jpg)
 
 ### 2. Solid-State Power Control
 Heating is physically controlled via a Solid-State Relay (SSR). The SSR is driven by an N-channel MOSFET (LU024N) connected directly to a GPIO pin on the DE10-Lite, isolating our delicate logic level circuitry from the 120VAC toaster oven.
@@ -54,7 +54,7 @@ Heating is physically controlled via a Solid-State Relay (SSR). The SSR is drive
 ### 3. Mechanical Cooling System
 To drastically improve the cooling decay rate compared to standard passive cooling, we designed a custom mechanical intervention system. This utilized a 3D-printed lever arm attached to a 20Ncm servo to automatically push the oven door open at the end of a cycle, accompanied by a 12V cooling fan mounted on a custom structural tower. 
 
-> ![3D Printed Fan Tower and Servo Arm](/assets/img/rocfan.png)
+> ![3D Printed Fan Tower and Servo Arm](/assets/img/rocfan.jpg)
 
 ---
 
@@ -68,7 +68,7 @@ A dedicated front-end FSM handles inputs from a custom 4x4 keypad. It includes d
 ### The Core Oven Controller FSM
 Driven by a 1ms hardware timer interrupt, this 6-stage FSM manages the physical state of the oven. We utilized an on-off control strategy, deactivating the heater slightly below target temperatures to prevent overshoot caused by the oven's latent thermal inertia.
 
-> ![FSM](/assets/img/rocfsm.png)
+> ![FSM](/assets/img/rocfsm.jpg)
 
 ```assembly
 ; Snippet: Soak Stage Temperature Control Logic
@@ -96,7 +96,7 @@ To manage the timer comparisons, we utilized a custom 32-bit math library capabl
 
 To validate our system and monitor the reflow process, we developed a Python-based stripchart application. The microcontroller transmits live temperature data, the current FSM stage, and elapsed time via serial over UART. The Python script visualizes this data in real-time, allowing us to actively track the heating rates and ensure the system remained strictly within the +/- 20°C tolerance window required for proper SMD reflow.
 
-> ![Live Reflow Python Dashboard](/assets/img/rocpython.png)
+> ![Live Reflow Python Dashboard](/assets/img/rocpython.jpg)
 
 ---
 

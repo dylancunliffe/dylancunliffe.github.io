@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Automotive Sensor Telemetry PCB
-subtitle: Designed PCB for automotive telemetry, powered by an STM32 MCU to aggregate GPS, speed, and thermal sensor data via UART, I2C, and CAN protocols
-thumbnail-img: assets/img/Screenshot 2025-12-05 184139.png
+subtitle: STM32 board aggregating GPS, speed, and thermal sensor data over UART, I2C, and CAN
+thumbnail-img: assets/img/telemetry-3.jpg
 tags: [PCB Design]
 author: Dylan Cunliffe
 ---
@@ -10,7 +10,7 @@ author: Dylan Cunliffe
 ### **Overview**
 In an effort to learn PCB design in Altium, I gave myself the challenge of fully designing a board in a weekend. So I designed a mixed-signal telemetry node intended for automotive diagnostics. The system aggregates real-time data from GNSS/GPS, digital and analog thermal sensors, and Hall-effect speed sensors, transmitting packetized data to a central vehicle controller via the **CAN Bus**.
 
-![3d render of PCB](/assets/img/Screenshot 2025-12-05 184139.png)
+![3d render of PCB](/assets/img/telemetry-3.jpg)
 *Figure 1: 3D Render of the Telemetry Unit designed in Altium Designer.*
 
 ---
@@ -23,10 +23,10 @@ The system is partitioned into three distinct electrical zones to minimize noise
 2.  **Digital Logic Area:** MCU, Crystal Oscillator, and Status LEDs.
 3.  **RF & Sensor Area:** GPS/GNSS path and sensitive sensor interfaces.
 
-![Schematic Architecture](/assets/img/Screenshot 2025-12-01 102052.png)
+![Schematic Architecture](/assets/img/telemetry-1.jpg)
 *Figure 2: Complete schematic showing all parts of the board. I've since learned how to make the schematic cleaner using ports.*
 
-![Schematic Architecture](/assets/img/Screenshot 2025-12-05 184651.png)
+![Schematic Architecture](/assets/img/telemetry-4.jpg)
 *Figure 3: Complete System Schematic showing logical partitioning.*
 
 ---
@@ -50,7 +50,7 @@ For the GNSS (GPS) module, the signal path from the module to the SMA connector 
 
 I also integrated **external connectors** for the thermal sensors. Instead of relying solely on onboard sensors, I designed external I2C interfaces with local power and pull-ups, allowing the unit to monitor remote vehicle components (like battery cells) rather than just PCB ambient temperature. Additionally, there is an onboard thermistor to monitor the board temperature under operation located right next to the MCU and power area.
 
-![PCB Zoning Strategy](/assets/img/Gemini_Generated_Image_v5elc5v5elc5v5el.png)
+![PCB Zoning Strategy](/assets/img/Gemini_Generated_Image_v5elc5v5elc5v5el.jpg)
 *Figure 4: PCB Layout highlighting the strict zoning of Analog, Digital, and Power domains.*
 
 ---

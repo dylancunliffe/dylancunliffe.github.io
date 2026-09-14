@@ -1,10 +1,11 @@
 ---
 layout: post
 title: Autonomous Multi-PCB Car and Controller
-subtitle: Autonomous, wire following RC Car featuring IR/Radio control and communication, TOF object detection, and custom PCBs
+subtitle: Wire-following autonomous car with IR/radio control, TOF object detection, and custom PCBs
 thumbnail-img: assets/img/fullproject2.jpg
 tags: [Altium Designer, STM32, C, Control Systems, PCB Layout, RF Telemetry]
 author: Dylan Cunliffe
+featured: 3
 ---
 
 > **Note:** This project was completed with a team of 6 people. While the group work was highly cooperative, my primary contributions dealt with programming the STM32 finite state machine, engineering the EFM8 radio telemetry bridge, integrating the ToF sensor, designing the mixed-signal radar PCB, leading the hardware-software integration across the four boards, and overall project management. I want to give credit to my team members: Jacky Chen, Olesya Kondrateva, Luke Santosham, Yasna Vafi, and Ethan Wong.
@@ -44,8 +45,8 @@ A 4-layer mixed-signal board acting as the central brain and power distributor.
 * **Signal Integrity:** A continuous internal ground plane provides a low-impedance return path, tied together with extensive stitching vias. 
 * **Peripherals:** Features a dual IR array driven by dedicated MOSFETs for 360º, room-scale communication, an onboard speaker, and an nRF24 radio module.
 
-> ![2D View of the Car PCB](/assets/img/car2d.png)
-> ![3D View of the Car PCB](/assets/img/car3d.png)
+> ![2D View of the Car PCB](/assets/img/car2d.jpg)
+> ![3D View of the Car PCB](/assets/img/car3d.jpg)
 
 ### 2. The Remote Controller PCB
 A custom handheld controller designed for robust human-machine interfacing.
@@ -53,22 +54,22 @@ A custom handheld controller designed for robust human-machine interfacing.
 * **Haptic & Visual Feedback:** Incorporates dual LCDs for telemetry and an optocoupler-isolated haptic vibration motor to physically alert the driver of mode changes or obstacles.
 * **UI Controls:** Features dual joysticks, an Eco-mode toggle, a rotation override button, and path-preset selectors. 
 
-> ![2D View of the Controller PCB](/assets/img/controller2d.png)
-> ![3D View of the Controller PCB](/assets/img/controller3d.png)
+> ![2D View of the Controller PCB](/assets/img/controller2d.jpg)
+> ![3D View of the Controller PCB](/assets/img/controller3d.jpg)
 
 ### 3. The Radio Telemetry Bridge
 A dedicated USB-to-RF PCB connecting the physical robot to a laptop.
 * **Design:** Built around an EFM8 microcontroller and an nRF24 module, utilizing proper RF grounding practices to achieve >25m transmission range through concrete walls.
 * **Function:** Acts as a transparent serial bridge, allowing our custom Python UI to send WASD commands, draw out preset execution paths, and log real-time vehicle states.
 
-> ![2D View of the Radio PCB](/assets/img/radio2d.png)
-> ![3D View of the Radio PCB](/assets/img/radio3d.png)
+> ![2D View of the Radio PCB](/assets/img/radio2d.jpg)
+> ![3D View of the Radio PCB](/assets/img/radio3d.jpg)
 
 ### 4. The Doppler Speed Radar PCB
 Integrated as a diagnostic and tracking sub-system, this board handles the analog signal processing of a 10.5 GHz radar wave to calculate velocity via an onboard FFT pipeline. *(Read the deep dive on this specific board [here](https://dylancunliffe.github.io/2026-03-05-doppler-speed-radar/)).*
 
-> ![2D View of the Radar PCB](/assets/img/PCB2D.png)
-> ![3D View of the Radar PCB](/assets/img/PCB3D3.png)
+> ![2D View of the Radar PCB](/assets/img/PCB2D.jpg)
+> ![3D View of the Radar PCB](/assets/img/PCB3D3.jpg)
 ---
 
 ## Firmware & System Dynamics
@@ -124,7 +125,7 @@ To ensure our Remote Controller only communicated with our specific vehicle in a
 During the bring-up of the Radio Receiver PCB, we encountered a hard physical limitation: The EFM8 microcontroller's Priority Crossbar Decoder could not route hardware SPI lines to Port 3, where the nRF24 radio was physically wired. 
 Instead of hacking up the custom PCB with jumper wires, we wrote a custom **bit-banged SPI driver** in C. By manually toggling the GPIO pins in sequence to mimic shift-register behavior, we successfully established a stable 115200 baud pipeline to the laptop without altering the physical copper.
 
-> ![3D View of the Radar PCB](/assets/img/pythondashboard.png)
+> ![3D View of the Radar PCB](/assets/img/pythondashboard.jpg)
 
 ---
 

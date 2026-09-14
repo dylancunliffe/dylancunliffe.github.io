@@ -2,9 +2,10 @@
 layout: post
 title: Mixed-Signal Doppler Radar System
 subtitle: Analog Signal Processing and PCB Design for Accurate Velocity Measurement
-thumbnail-img: assets/img/PCB3D3.png
+thumbnail-img: assets/img/PCB3D3.jpg
 tags: [Altium Designer, STM32, Mixed-Signal, LTspice, PCB Layout]
 author: Dylan Cunliffe
+featured: 2
 ---
 
 ## Overview
@@ -108,13 +109,13 @@ If uncorrected, the op-amp would apply the 175x multiplier to the DC bias as wel
 
 *Note: The feedback network also utilizes a 270 pF capacitor in parallel with a 174 kΩ resistor, forming a low-pass filter with a cutoff frequency of roughly 3.4 kHz. This physically blocks high-frequency environmental noise, optimizing the board for measuring speeds up to ~110 MPH.*
 
-![LTSpice Simulation1](/assets/img/LTSWave1.png)
+![LTSpice Simulation1](/assets/img/LTSWave1.jpg)
 *AC Analysis showing wave output from analog circuit*
 
-![LTSpice Simulation2](/assets/img/LTSWave2.png)
+![LTSpice Simulation2](/assets/img/LTSWave2.jpg)
 *Bode plot showing filter frequency cutoffs*
 
-![LTSpice Simulation3](/assets/img/LTSDiagram.png)
+![LTSpice Simulation3](/assets/img/LTSDiagram.jpg)
 *Simulated LTSpice circuit*
 
 ![PCB Schematic](/assets/img/PCBSCHEMATIC.png)
@@ -133,13 +134,13 @@ At high frequencies (like the STM32's 170 MHz internal clock), return current ta
 - **Digital Separation:** High-speed communication lines (I2C for the display, UART for telemetry) were routed to physically adjacent Alternate Function (AF) pins on the opposite side of the STM32 package, ensuring digital traces never cross into the analog domain.
 - **Decoupling Geometry:** The `0.1 µF` decoupling capacitors were placed essentially touching the STM32's VDD and VDDA pins. Minimizing this physical distance is critical to reducing parasitic trace inductance, ensuring the microcontroller receives instantaneous current during high-frequency clock ticks.
 
-![2D PCB View](/assets/img/PCB2D.png)
+![2D PCB View](/assets/img/PCB2D.jpg)
 *Final 2D PCB routing*
 
-![2D PCB View](/assets/img/PCBPours.png)
+![2D PCB View](/assets/img/PCBPours.jpg)
 *PCB top layer ground pours*
 
-![3D PCB View](/assets/img/PCB3D2.png)
+![3D PCB View](/assets/img/PCB3D2.jpg)
 *Final 3D Render in Altium Designer*
 
 ---

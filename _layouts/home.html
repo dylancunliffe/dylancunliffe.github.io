@@ -4,72 +4,26 @@ layout: page
 
 {{ content }}
 
-{% assign posts = paginator.posts | default: site.posts %}
+{% comment %}
+  Cards: posts with `featured: N` (N = display order) go in the large row at the top;
+  everything else goes in the compact grid below, newest first.
+  A post with `external-url` links straight to that URL instead of its post page.
+{% endcomment %}
+{% assign featured = site.posts | where_exp: "p", "p.featured" | sort: "featured" %}
+{% assign rest = site.posts | where_exp: "p", "p.featured == nil" %}
 
+<div class="home-wrap">
+
+{% if featured.size > 0 %}
+<h2 class="section-title">Featured</h2>
+<div class="card-container featured">
+  {% for post in featured %}{% include project-card.html post=post %}{% endfor %}
+</div>
+{% endif %}
+
+<h2 class="section-title">All projects</h2>
 <div class="card-container">
-  {% for post in posts %}
-    <div class="post-card">
-      {% if post.external-url %}
-      <a href="{{ post.external-url }}" target="_blank" rel="noopener">
-      {% else %}
-      <a href="{{ post.url | relative_url }}">
-      {% endif %}
-        
-        {%- capture thumbnail -%}
-          {% if post.thumbnail-img %}
-            {{ post.thumbnail-img }}
-          {% elsif post.cover-img %}
-            {% if post.cover-img.first %}
-              {{ post.cover-img[0].first.first }}
-            {% else %}
-              {{ post.cover-img }}
-            {% endif %}
-          {% else %}
-          {% endif %}
-        {% endcapture %}
-        {% assign thumbnail=thumbnail | strip %}
-
-        {% if thumbnail != "" %}
-          <img src="{{ thumbnail | relative_url }}" alt="{{ post.title }}" class="card-image">
-        {% endif %}
-
-        <div class="card-content">
-          <h3 class="card-title">{{ post.title | strip_html }}</h3>
-          
-          <p class="card-excerpt">
-            {% if post.subtitle %}
-              {{ post.subtitle | strip_html | truncate: 120 }}
-            {% else %}
-              {{ post.excerpt | strip_html | truncatewords: 20 }}
-            {% endif %}
-          </p>
-          
-          <div class="card-meta">
-            <span class="card-date">{{ post.date | date: "%B %-d, %Y" }}</span>
-          </div>
-        </div>
-      </a>
-    </div>
-  {% endfor %}
+  {% for post in rest %}{% include project-card.html post=post %}{% endfor %}
 </div>
 
-{% if paginator.total_pages > 1 %}
-<ul class="pagination main-pager">
-  {% if paginator.previous_page %}
-  <li class="page-item previous">
-    <a class="page-link" href="{{ paginator.previous_page_path | relative_url }}">
-      <i class="fas fa-arrow-left" alt="Newer Posts"></i>
-      <span class="d-none d-sm-inline-block">Newer Posts</span>
-    </a>
-  </li>
-  {% endif %}
-  {% if paginator.next_page %}
-  <li class="page-item next">
-    <a class="page-link" href="{{ paginator.next_page_path | relative_url }}">
-      <span class="d-none d-sm-inline-block">Older Posts</span>
-      <i class="fas fa-arrow-right" alt="Older Posts"></i>
-    </a>
-  </li>
-  {% endif %}
-</ul>
-{% endif %}
+</div>

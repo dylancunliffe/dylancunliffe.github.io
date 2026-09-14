@@ -10,7 +10,7 @@
 ############################
 
 # Name of website
-title: Personal Projects
+title: Dylan Cunliffe
 
 # Your name to show in the footer
 author: Dylan Cunliffe
@@ -20,6 +20,7 @@ author: Dylan Cunliffe
 ###############################################
 
 navbar-links:
+  Projects: "/"
   About Me: "aboutme"
   Resume: "resume"
 
@@ -29,7 +30,7 @@ navbar-links:
 
 # Image to show in the navigation bar - works best with a square image
 # Remove this parameter if you don't want an image in the navbar
-avatar: "assets/img/Gemini_Generated_Image_owe13sowe13sowe1.png"
+avatar: "/assets/img/avatar.png"
 
 # By default, the image is cut into a circle. You can disable this behaviour by setting 'round-avatar: false'
 round-avatar: true
@@ -76,6 +77,7 @@ social-network-links:
 
 # If you want your website to generate an RSS feed, provide a description
 # The URL for the feed will be https://<your_website>/feed.xml
+description: "Dylan Cunliffe's engineering portfolio - hardware, embedded systems, RF, and machine learning projects."
 
 ###########################
 # --- General options --- #
@@ -117,7 +119,7 @@ edit_page_button: false
 navbar-var-length: true
 
 # The keywords to associate with your website, for SEO purposes
-#keywords: "my,list,of,keywords"
+keywords: "Dylan Cunliffe, electrical engineering, UBC, portfolio, PCB design, embedded systems, RF"
 
 ######################################
 # --- Colours / background image --- #

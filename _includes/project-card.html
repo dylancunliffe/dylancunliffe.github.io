@@ -1,0 +1,27 @@
+{%- assign post = include.post -%}
+{%- capture thumbnail -%}
+  {%- if post.thumbnail-img -%}{{ post.thumbnail-img }}
+  {%- elsif post.cover-img.first -%}{{ post.cover-img[0].first.first }}
+  {%- elsif post.cover-img -%}{{ post.cover-img }}
+  {%- endif -%}
+{%- endcapture -%}
+{%- assign thumbnail = thumbnail | strip -%}
+<div class="post-card">
+  {% if post.external-url %}
+  <a href="{{ post.external-url }}" target="_blank" rel="noopener">
+  {% else %}
+  <a href="{{ post.url | relative_url }}">
+  {% endif %}
+    {% if thumbnail != "" %}
+    <img src="{{ thumbnail | relative_url }}" alt="" class="card-image" loading="lazy">
+    {% endif %}
+    <div class="card-content">
+      <h3 class="card-title">{{ post.title | strip_html }}{% if post.external-url %} <span class="ext" aria-label="opens in new tab">&#8599;</span>{% endif %}</h3>
+      <p class="card-excerpt">
+        {%- if post.subtitle -%}{{ post.subtitle | strip_html | truncate: 120 }}
+        {%- else -%}{{ post.excerpt | strip_html | truncatewords: 18 }}{%- endif -%}
+      </p>
+      <div class="card-meta"><span class="card-date">{{ post.date | date: "%B %Y" }}</span></div>
+    </div>
+  </a>
+</div>

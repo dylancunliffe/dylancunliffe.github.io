@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Sea to School Traffic Forecasting
-subtitle: Building a Real-Time Data Driven Commute Prediction System from West Vancouver to UBC
-thumbnail-img: assets/img/Gemini_Generated_Image_j6tjlgj6tjlgj6tj.png
+subtitle: A real-time, data-driven commute prediction system for the West Vancouver to UBC drive
+thumbnail-img: assets/img/Gemini_Generated_Image_j6tjlgj6tjlgj6tj.jpg
 tags: [Arduino, C, Embedded C, GPS]
 author: Dylan Cunliffe
 ---
@@ -205,7 +205,7 @@ The commute is split into logical segments such as:
 
 Each segment boundary corresponds to GPS-detected distance thresholds.
 
-![Segment Map](/assets/img/Screenshot 2025-12-06 210736.png) 
+![Segment Map](/assets/img/traffic-segment-map.jpg) 
 **Map of the different segment boundaries.**
 
 ---

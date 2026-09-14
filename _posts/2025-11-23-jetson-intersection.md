@@ -150,7 +150,7 @@ The controller manages:
 * **Vehicle requests from YOLO** (latched, adaptive side-green extension)
 * **Safety phases** (yellow + all-red intervals)
 
-![State diagram](/assets/img/Gemini_Generated_Image_eoqri3eoqri3eoqr.png)
+![State diagram](/assets/img/Gemini_Generated_Image_eoqri3eoqri3eoqr.jpg)
 
 ### Code — Main Controller (excerpt)
 
