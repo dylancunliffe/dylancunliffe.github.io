@@ -9,7 +9,11 @@ layout: page
 <div class="card-container">
   {% for post in posts %}
     <div class="post-card">
+      {% if post.external-url %}
+      <a href="{{ post.external-url }}" target="_blank" rel="noopener">
+      {% else %}
       <a href="{{ post.url | relative_url }}">
+      {% endif %}
         
         {%- capture thumbnail -%}
           {% if post.thumbnail-img %}
